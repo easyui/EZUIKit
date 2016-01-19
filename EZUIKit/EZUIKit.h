@@ -17,3 +17,12 @@ FOUNDATION_EXPORT const unsigned char EZUIKitVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <EZUIKit/PublicHeader.h>
 
 
+
+#define EZUIKit_Version @"1.0.0"
+
+
+#import <UIKit/UIKit.h>
+
+
+
+#import <EZUIKit/EZWebViewController/EZWebViewController.h>

@@ -6,11 +6,25 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		9930A5771C4DE5DA006F1E14 /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9930A5781C4DE5DA006F1E14 /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				9930A57B1C4DE605006F1E14 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		9930A55C1C4DD730006F1E14 /* EZUIKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A55B1C4DD730006F1E14 /* EZUIKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9930A5631C4DD730006F1E14 /* EZUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9930A5581C4DD730006F1E14 /* EZUIKit.framework */; };
 		9930A5681C4DD730006F1E14 /* EZUIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5671C4DD730006F1E14 /* EZUIKitTests.m */; };
-		9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A5731C4DE4C4006F1E14 /* EZWebViewController.h */; };
+		9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A5731C4DE4C4006F1E14 /* EZWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -166,6 +180,9 @@
 					9930A5611C4DD730006F1E14 = {
 						CreatedOnToolsVersion = 7.2;
 					};
+					9930A5771C4DE5DA006F1E14 = {
+						CreatedOnToolsVersion = 7.2;
+					};
 				};
 			};
 			buildConfigurationList = 9930A5521C4DD730006F1E14 /* Build configuration list for PBXProject "EZUIKit" */;
@@ -182,6 +199,7 @@
 			targets = (
 				9930A5571C4DD730006F1E14 /* EZUIKit */,
 				9930A5611C4DD730006F1E14 /* EZUIKitTests */,
+				9930A5771C4DE5DA006F1E14 /* Framework */,
 			);
 		};
 /* End PBXProject section */
@@ -202,6 +220,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9930A57B1C4DE605006F1E14 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nFMK_TARGET_NAME=${PROJECT_NAME}\nFMK_NAME=${PROJECT_NAME}\nUNIVERSAL_OUTPUTFOLDER=${SRCROOT}/Products\n\n\nrm -rf \"${UNIVERSAL_OUTPUTFOLDER}\"\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n# Step 1. Build Device and Simulator versions\nxcodebuild -target \"${FMK_TARGET_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  clean build\nxcodebuild -target \"${FMK_TARGET_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO  clean build\n\n# Step 2. Copy the framework structure (from iphoneos build) to the universal folder\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}/\"\n\n# Step 3. Copy Swift modules (from iphonesimulator build) to the copied framework directory\n#cp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework/Modules/Framework.swiftmodule/.\" \"${UNIVERSAL_OUTPUTFOLDER}/${FMK_NAME}.framework/Modules/Framework.swiftmodule\"\n\n# Step 4. Create universal binary file using lipo and place the combined executable in the copied framework directory\n\n\nlipo -create -output \"${UNIVERSAL_OUTPUTFOLDER}/${FMK_NAME}.framework/${FMK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework/${FMK_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework/${FMK_NAME}\"\n# Step 5. Convenience step to open the project's directory in Finder\nrm -r \"build\"\nopen \"${UNIVERSAL_OUTPUTFOLDER}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		9930A5531C4DD730006F1E14 /* Sources */ = {
@@ -375,6 +409,22 @@
 			};
 			name = Release;
 		};
+		9930A5791C4DE5DA006F1E14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9930A57A1C4DE5DA006F1E14 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -404,6 +454,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		9930A5781C4DE5DA006F1E14 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9930A5791C4DE5DA006F1E14 /* Debug */,
+				9930A57A1C4DE5DA006F1E14 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
