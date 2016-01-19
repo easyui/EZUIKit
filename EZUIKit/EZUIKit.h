@@ -25,4 +25,4 @@ FOUNDATION_EXPORT const unsigned char EZUIKitVersionString[];
 
 
 
-#import <EZUIKit/EZWebViewController/EZWebViewController.h>
+#import <EZUIKit/EZWebViewController.h>
