@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  EZWebViewControllerExample.h
 //  EZUIKitExampleProject
 //
 //  Created by yangjun zhu on 16/1/19.
@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ViewController : UIViewController
-
+#import <EZUIKit/EZUIKit.h>
+@interface EZWebViewControllerExample : UIViewController
 
 @end
-

@@ -26,6 +26,8 @@
 		9930A5681C4DD730006F1E14 /* EZUIKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5671C4DD730006F1E14 /* EZUIKitTests.m */; };
 		9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A5731C4DE4C4006F1E14 /* EZWebViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */; };
+		9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A6121C4E424F006F1E14 /* EZWebViewToolView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A6131C4E424F006F1E14 /* EZWebViewToolView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		9930A5691C4DD730006F1E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9930A5731C4DE4C4006F1E14 /* EZWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZWebViewController.h; sourceTree = "<group>"; };
 		9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewController.m; sourceTree = "<group>"; };
+		9930A6121C4E424F006F1E14 /* EZWebViewToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZWebViewToolView.h; sourceTree = "<group>"; };
+		9930A6131C4E424F006F1E14 /* EZWebViewToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewToolView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 			children = (
 				9930A5731C4DE4C4006F1E14 /* EZWebViewController.h */,
 				9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */,
+				9930A6121C4E424F006F1E14 /* EZWebViewToolView.h */,
+				9930A6131C4E424F006F1E14 /* EZWebViewToolView.m */,
 			);
 			path = EZWebViewController;
 			sourceTree = "<group>";
@@ -122,6 +128,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9930A55C1C4DD730006F1E14 /* EZUIKit.h in Headers */,
+				9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */,
 				9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */,
 				9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -462,6 +470,7 @@
 				9930A57A1C4DE5DA006F1E14 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

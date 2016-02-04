@@ -9,13 +9,13 @@
 /* Begin PBXBuildFile section */
 		9930A58A1C4DE88A006F1E14 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5891C4DE88A006F1E14 /* main.m */; };
 		9930A58D1C4DE88A006F1E14 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A58C1C4DE88A006F1E14 /* AppDelegate.m */; };
-		9930A5901C4DE88A006F1E14 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A58F1C4DE88A006F1E14 /* ViewController.m */; };
 		9930A5931C4DE88A006F1E14 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9930A5911C4DE88A006F1E14 /* Main.storyboard */; };
 		9930A5951C4DE88A006F1E14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9930A5941C4DE88A006F1E14 /* Assets.xcassets */; };
 		9930A5981C4DE88A006F1E14 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9930A5961C4DE88A006F1E14 /* LaunchScreen.storyboard */; };
 		9930A5A31C4DE88A006F1E14 /* EZUIKitExampleProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5A21C4DE88A006F1E14 /* EZUIKitExampleProjectTests.m */; };
 		9930A5AE1C4DE88A006F1E14 /* EZUIKitExampleProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5AD1C4DE88A006F1E14 /* EZUIKitExampleProjectUITests.m */; };
 		9930A5CA1C4DEA3D006F1E14 /* EZUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9930A5C31C4DE975006F1E14 /* EZUIKit.framework */; };
+		9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,6 @@
 		9930A5891C4DE88A006F1E14 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9930A58B1C4DE88A006F1E14 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9930A58C1C4DE88A006F1E14 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9930A58E1C4DE88A006F1E14 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9930A58F1C4DE88A006F1E14 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9930A5921C4DE88A006F1E14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9930A5941C4DE88A006F1E14 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9930A5971C4DE88A006F1E14 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +72,8 @@
 		9930A5AD1C4DE88A006F1E14 /* EZUIKitExampleProjectUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EZUIKitExampleProjectUITests.m; sourceTree = "<group>"; };
 		9930A5AF1C4DE88A006F1E14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9930A5BC1C4DE975006F1E14 /* EZUIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EZUIKit.xcodeproj; path = ../EZUIKit.xcodeproj; sourceTree = "<group>"; };
+		9930A6171C4E8950006F1E14 /* EZWebViewControllerExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZWebViewControllerExample.h; sourceTree = "<group>"; };
+		9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewControllerExample.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,10 +126,9 @@
 		9930A5871C4DE88A006F1E14 /* EZUIKitExampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				9930A5CB1C4DF112006F1E14 /* EZWebViewControllerExample */,
 				9930A58B1C4DE88A006F1E14 /* AppDelegate.h */,
 				9930A58C1C4DE88A006F1E14 /* AppDelegate.m */,
-				9930A58E1C4DE88A006F1E14 /* ViewController.h */,
-				9930A58F1C4DE88A006F1E14 /* ViewController.m */,
 				9930A5911C4DE88A006F1E14 /* Main.storyboard */,
 				9930A5941C4DE88A006F1E14 /* Assets.xcassets */,
 				9930A5961C4DE88A006F1E14 /* LaunchScreen.storyboard */,
@@ -172,6 +171,15 @@
 				9930A5C51C4DE975006F1E14 /* EZUIKitTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9930A5CB1C4DF112006F1E14 /* EZWebViewControllerExample */ = {
+			isa = PBXGroup;
+			children = (
+				9930A6171C4E8950006F1E14 /* EZWebViewControllerExample.h */,
+				9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */,
+			);
+			path = EZWebViewControllerExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,8 +336,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9930A5901C4DE88A006F1E14 /* ViewController.m in Sources */,
 				9930A58D1C4DE88A006F1E14 /* AppDelegate.m in Sources */,
+				9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */,
 				9930A58A1C4DE88A006F1E14 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,10 +484,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = EZUIKitExampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ouka.EZUIKitExampleProject;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.neulion.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -487,10 +498,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = EZUIKitExampleProject/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ouka.EZUIKitExampleProject;
+				PRODUCT_BUNDLE_IDENTIFIER = cn.neulion.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

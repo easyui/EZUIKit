@@ -21,8 +21,7 @@ FOUNDATION_EXPORT const unsigned char EZUIKitVersionString[];
 #define EZUIKit_Version @"1.0.0"
 
 
-#import <UIKit/UIKit.h>
 
 
-
+#import <EZUIKit/EZWebViewToolView.h>
 #import <EZUIKit/EZWebViewController.h>
