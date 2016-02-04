@@ -12,7 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @protocol EZWebViewToolViewDelegate;
+
+
+
 @interface EZWebViewToolView : UIView
+
+
 @property (nonatomic, strong)  UIToolbar *toolBar;
 @property (nonatomic, strong)  UIBarButtonItem *backButtonItem;
 @property (nonatomic, strong)  UIBarButtonItem *forwardButtonItem;
@@ -29,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 - (void)updateButtonState:(WKWebView *)webView;
+
 @end
 
 

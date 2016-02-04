@@ -9,8 +9,14 @@
 #import "EZWebViewController.h"
 #import "EZWebViewToolView.h"
 @interface EZWebViewController ()<EZWebViewToolViewDelegate,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
+
+
 @property (nonatomic, strong)  EZWebViewToolView *toolView;
 @property (nonatomic, assign) BOOL isShowToolView;
+
+@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIProgressView *progressView;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @property (nonatomic, strong)  NSLayoutConstraint *toolViewHeightConstraint;
 @property (nonatomic, assign) CGFloat defaultToolViewHeight ;//default 44
@@ -307,7 +313,7 @@
  */
 - (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(WKNavigation *)navigation {
     
-    NSLog(@"%s", __FUNCTION__);
+//    NSLog(@"%s", __FUNCTION__);
 }
 
 
@@ -445,6 +451,10 @@
     [self.webView loadHTMLString:HTMLString baseURL:nil];
 }
 
+- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ )( id, NSError *  error))completionHandler{
+   [self.webView evaluateJavaScript:javaScriptString completionHandler:completionHandler];
+}
+
 #pragma mark - action
 
 - (void)doneButtonPressed:(id)sender {
@@ -491,7 +501,7 @@
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[progressView]-0-|" options:0 metrics:nil views:@{@"progressView": self.progressView}]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[topGuide]-0-[progressView(2)]" options:0 metrics:nil views:@{@"progressView": self.progressView,  @"topGuide": self.topLayoutGuide}]];
     }
-    NSLog(@"%f",progress);
+
     self.progressView.alpha = 1;
     self.progressView.progress = progress;
     if (self.progressView.progress >= 1) {

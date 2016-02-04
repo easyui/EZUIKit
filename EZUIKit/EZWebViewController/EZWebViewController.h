@@ -48,10 +48,7 @@ typedef NS_ENUM(NSInteger, EZWebViewControllerStyleInNavigationBar) {
 
 @property (nullable, nonatomic, weak) id <EZWebViewControllerDelegate> delegate;
 
-////////private
-@property (nonatomic, strong) WKWebView *webView;
-@property (nonatomic, strong) UIProgressView *progressView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
+
 
 + (UINavigationController *)navigationControllerWithWebViewController;
 + (UINavigationController *)navigationControllerWithWebViewControllerWithConfiguration:( nullable WKWebViewConfiguration *)configuration NS_AVAILABLE_IOS(8_0);
@@ -66,16 +63,19 @@ typedef NS_ENUM(NSInteger, EZWebViewControllerStyleInNavigationBar) {
 
 - (void)showToolViewWithAnimated:(BOOL)animated;
 - (void)hideToolViewWithAnimated:(BOOL)animated;
+
+- (void)evaluateJavaScript:(NSString *)javaScriptString completionHandler:(void (^ __nullable)(__nullable id, NSError * __nullable error))completionHandler;
 @end
 
 
 @protocol EZWebViewControllerDelegate <NSObject>
+
 @optional
 - (void)webViewControllerWillDismiss:(EZWebViewController *)viewController;
 - (void)webViewControllerDidDismiss:(EZWebViewController *)viewController;
 
-- (void)webViewController:(EZWebViewController *)viewController newURL:(nullable NSURL *)newURL;
-- (void)webViewController:(EZWebViewController *)viewController newTitle:(nullable NSString *)newTitle;
+- (void)webViewController:(EZWebViewController *)viewController newURL:(NSURL * __nullable)newURL;
+- (void)webViewController:(EZWebViewController *)viewController newTitle:(NSString * __nullable)newTitle;
 
 
 

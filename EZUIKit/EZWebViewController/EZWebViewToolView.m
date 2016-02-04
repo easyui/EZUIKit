@@ -8,6 +8,13 @@
 
 #import "EZWebViewToolView.h"
 
+
+@interface EZWebViewToolView ()
+
+
+@end
+
+
 @implementation EZWebViewToolView
 
 /*
