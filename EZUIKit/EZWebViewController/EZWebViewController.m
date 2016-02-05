@@ -235,6 +235,9 @@
  */
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
     [self __showLoading:YES];
+    if([self.delegate respondsToSelector:@selector(webViewController:didStartLoadingURL:)]) {
+        [self.delegate webViewController:self didStartLoadingURL:self.webView.URL];
+    }
 }
 
 /**
@@ -274,6 +277,9 @@
     if(self.interactivePopGestureRecognizerEnabled && self.allowsBackForwardNavigationGestures){
         self.navigationController.interactivePopGestureRecognizer.enabled = !self.webView.canGoBack;
     }
+    if([self.delegate respondsToSelector:@selector(webViewController:didFinishLoadingURL:)]) {
+        [self.delegate webViewController:self didFinishLoadingURL:self.webView.URL];
+    }
 }
 
 /////////////////////////分割线/////////////
@@ -287,6 +293,9 @@
  */
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error{
     [self __showLoading:NO];
+    if([self.delegate respondsToSelector:@selector(webViewController:didFailToLoadURL:error:)]) {
+        [self.delegate webViewController:self didFailToLoadURL:self.webView.URL error:error];
+    }
 
 }
 
@@ -301,7 +310,9 @@
  */
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(nonnull NSError *)error{
     [self __showLoading:NO];
-
+    if([self.delegate respondsToSelector:@selector(webViewController:didFailToLoadURL:error:)]) {
+        [self.delegate webViewController:self didFailToLoadURL:self.webView.URL error:error];
+    }
 }
 
 

@@ -74,8 +74,15 @@ typedef NS_ENUM(NSInteger, EZWebViewControllerStyleInNavigationBar) {
 - (void)webViewControllerWillDismiss:(EZWebViewController *)viewController;
 - (void)webViewControllerDidDismiss:(EZWebViewController *)viewController;
 
+
+
 - (void)webViewController:(EZWebViewController *)viewController newURL:(NSURL * __nullable)newURL;
 - (void)webViewController:(EZWebViewController *)viewController newTitle:(NSString * __nullable)newTitle;
+
+
+- (void)webViewController:(EZWebViewController *)webBrowser didStartLoadingURL:(NSURL *)URL;
+- (void)webViewController:(EZWebViewController *)webBrowser didFinishLoadingURL:(NSURL *)URL;
+- (void)webViewController:(EZWebViewController *)webBrowser didFailToLoadURL:(NSURL *)URL error:(NSError *)error;
 
 
 
