@@ -55,6 +55,7 @@
 }
 
 #pragma mark - Life Cycle
+/*
 - (void)layoutSubviews{
     [super layoutSubviews];
     if(!self.toolBar){
@@ -73,6 +74,7 @@
         
     }
 }
+ */
 
 
 #pragma mark - action
@@ -119,6 +121,22 @@
 #pragma mark - private
 - (void)__commonInit{
     self.toolbarTranslucent = YES;
+    
+    if(!self.toolBar){
+        self.toolBar = [[UIToolbar alloc] init];
+        
+        self.toolBar.tintColor = self.toolbarTintColor;
+        self.toolBar.backgroundColor = self.toolbarBackgroundColor;
+        self.toolBar.translucent = self.toolbarTranslucent;
+        
+        self.toolBar.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:self.toolBar];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[toolBar]-0-|" options:0 metrics:nil views:@{@"toolBar": self.toolBar}]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[toolBar]-0-|" options:0 metrics:nil views:@{@"toolBar": self.toolBar}]];
+        NSArray<UIBarButtonItem *> *items = @[self.backButtonItem,self.forwardButtonItem,self.flexibleSpace,self.refreshButtonItem] ;
+        [self.toolBar setItems:items animated:NO];
+        
+    }
     
 }
 #pragma mark - get
