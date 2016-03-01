@@ -8,6 +8,17 @@
 
 #import "EZWebViewController.h"
 #import "EZWebViewToolView.h"
+
+@implementation UINavigationController(EZWebViewController)
+
+- (EZWebViewController *)rootEZWebViewController {
+    UIViewController *rootViewController = [self.viewControllers objectAtIndex:0];
+    return (EZWebViewController *)rootViewController;
+}
+
+@end
+
+
 @interface EZWebViewController ()<EZWebViewToolViewDelegate,WKNavigationDelegate,WKUIDelegate,WKScriptMessageHandler>
 
 
@@ -22,6 +33,7 @@
 @property (nonatomic, assign) CGFloat defaultToolViewHeight ;//default 44
 @property (nonatomic, assign) BOOL interactivePopGestureRecognizerEnabled ;
 
+@property (nonatomic, strong) NSURLRequest *webRequest ;
 
 
 @end
@@ -101,14 +113,15 @@
         [self showToolViewWithAnimated:NO];
     }
     
-    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:0]];
     
     
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:NULL];
     [self.webView addObserver:self forKeyPath:@"URL" options:NSKeyValueObservingOptionNew context:NULL];
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 
-
+    if (self.webRequest) {
+        [self loadRequest:self.webRequest];
+    }
 }
 
 
@@ -159,6 +172,12 @@
 
 
 }
+
+/*
+-(UIRectEdge)edgesForExtendedLayout{
+    return super.edgesForExtendedLayout ^ UIRectEdgeBottom;
+}
+ */
 
 #pragma mark - Estimated Progress KVO (WKWebView)
 
@@ -454,7 +473,10 @@
 
 
 - (void)loadRequest:(NSURLRequest *)request {
+     self.webRequest = request;
     [self.webView loadRequest:request];
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:0]];
+
 }
 
 

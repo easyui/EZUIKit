@@ -42,14 +42,18 @@
     webviewController.tintColor = [UIColor greenColor];
     
     [self.navigationController  pushViewController:webviewController animated:YES];
+    //    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:0]];
+    [webviewController loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:0]];
 // [UITableView]
     
 }
 
 
 - (IBAction)presentActon1:(id)sender {
-    [self presentViewController:[EZWebViewController navigationControllerWithWebViewController] animated:YES completion:^{
-        
+    UINavigationController *navigationController = [EZWebViewController navigationControllerWithWebViewController];
+    [self presentViewController:navigationController animated:YES completion:^{
+        [navigationController.rootEZWebViewController loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:@"https://github.com/"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:0]];
+
     }];
 }
 

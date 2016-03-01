@@ -9,9 +9,18 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 @class  EZWebViewToolView;
+@class  EZWebViewController;
+
 @protocol  EZWebViewControllerDelegate;
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface UINavigationController(EZWebViewController)
+
+// Returns rootViewController casted as KINWebBrowserViewController
+- (nullable EZWebViewController *)rootEZWebViewController;
+
+@end
 
 typedef NS_OPTIONS(NSInteger, EZWebViewControllerProgressIndicatorStyle) {
     EZWebViewControllerProgressIndicatorStyleActivityIndicator     = 1 << 0,
@@ -55,7 +64,7 @@ typedef NS_ENUM(NSInteger, EZWebViewControllerStyleInNavigationBar) {
 
 
 - (instancetype)init;// NS_UNAVAILABLE;
-- (instancetype)initWithConfiguration:(WKWebViewConfiguration *)configuration   NS_AVAILABLE_IOS(8_0);//NS_DESIGNATED_INITIALIZER
+- (instancetype)initWithConfiguration:(nullable WKWebViewConfiguration *)configuration   NS_AVAILABLE_IOS(8_0);//NS_DESIGNATED_INITIALIZER
 
 
 - (void)loadRequest:(NSURLRequest *)request;
