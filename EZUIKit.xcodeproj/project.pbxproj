@@ -28,6 +28,10 @@
 		9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */; };
 		9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9930A6121C4E424F006F1E14 /* EZWebViewToolView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A6131C4E424F006F1E14 /* EZWebViewToolView.m */; };
+		993927B41C8C90EC00112509 /* EZFloatContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 993927B01C8C90EC00112509 /* EZFloatContainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		993927B51C8C90EC00112509 /* EZFloatContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 993927B11C8C90EC00112509 /* EZFloatContainer.m */; };
+		993927B61C8C90EC00112509 /* EZFloatContainerRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 993927B21C8C90EC00112509 /* EZFloatContainerRootViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +55,10 @@
 		9930A5741C4DE4C4006F1E14 /* EZWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewController.m; sourceTree = "<group>"; };
 		9930A6121C4E424F006F1E14 /* EZWebViewToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZWebViewToolView.h; sourceTree = "<group>"; };
 		9930A6131C4E424F006F1E14 /* EZWebViewToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewToolView.m; sourceTree = "<group>"; };
+		993927B01C8C90EC00112509 /* EZFloatContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZFloatContainer.h; sourceTree = "<group>"; };
+		993927B11C8C90EC00112509 /* EZFloatContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFloatContainer.m; sourceTree = "<group>"; };
+		993927B21C8C90EC00112509 /* EZFloatContainerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZFloatContainerRootViewController.h; sourceTree = "<group>"; };
+		993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFloatContainerRootViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +101,7 @@
 		9930A55A1C4DD730006F1E14 /* EZUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				993927AF1C8C90EC00112509 /* EZFloatContainer */,
 				9930A5721C4DE456006F1E14 /* EZWebViewController */,
 				9930A55B1C4DD730006F1E14 /* EZUIKit.h */,
 				9930A55D1C4DD730006F1E14 /* Info.plist */,
@@ -120,6 +129,17 @@
 			path = EZWebViewController;
 			sourceTree = "<group>";
 		};
+		993927AF1C8C90EC00112509 /* EZFloatContainer */ = {
+			isa = PBXGroup;
+			children = (
+				993927B01C8C90EC00112509 /* EZFloatContainer.h */,
+				993927B11C8C90EC00112509 /* EZFloatContainer.m */,
+				993927B21C8C90EC00112509 /* EZFloatContainerRootViewController.h */,
+				993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */,
+			);
+			path = EZFloatContainer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -127,6 +147,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993927B41C8C90EC00112509 /* EZFloatContainer.h in Headers */,
+				993927B61C8C90EC00112509 /* EZFloatContainerRootViewController.h in Headers */,
 				9930A55C1C4DD730006F1E14 /* EZUIKit.h in Headers */,
 				9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */,
 				9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */,
@@ -251,6 +273,8 @@
 			files = (
 				9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */,
 				9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */,
+				993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */,
+				993927B51C8C90EC00112509 /* EZFloatContainer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
