@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface EZFloatContainer : NSObject
 @property (assign, nonatomic,readonly)BOOL isShow;
 
+@property (assign, nonatomic) CGFloat attractionsGapForTopOrBottom;
+
 
 #pragma mark - Autorotation
 @property (assign, nonatomic)  BOOL shouldAutorotate;//default: YES

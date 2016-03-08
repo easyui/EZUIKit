@@ -43,12 +43,9 @@
         self.frame = frame;
         self.floatWindow = [[UIWindow alloc] initWithFrame:self.frame];
         self.floatWindow.backgroundColor = [UIColor redColor];
-        //        self.castWindow.windowLevel = 3000;
         self.floatWindow.windowLevel = UIWindowLevelNormal + 1;
         self.floatWindow.clipsToBounds = YES;
-        //        [self.castWindow makeKeyAndVisible];
         self.floatWindow.rootViewController = rootViewController;
-        
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
         
@@ -69,12 +66,12 @@
 - (void)floatHandlePan:(UIPanGestureRecognizer*)panGestureRecognizer
 {
     
-    UIView * moveView = panGestureRecognizer.view;
+    UIView * panView = panGestureRecognizer.view;//panView is floatWindow;
     [UIView animateWithDuration:0.1 animations:^{
         if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
-            CGPoint translation = [panGestureRecognizer translationInView:moveView];
-            [moveView setCenter:(CGPoint){moveView.center.x + translation.x, moveView.center.y + translation.y}];
-            [panGestureRecognizer setTranslation:CGPointZero inView:moveView];
+            CGPoint translation = [panGestureRecognizer translationInView:panView];
+            [panView setCenter:(CGPoint){panView.center.x + translation.x, panView.center.y + translation.y}];
+            [panGestureRecognizer setTranslation:CGPointZero inView:panView];
             //            [self setImgaeNameWithMove:YES];
         }
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
@@ -102,51 +99,54 @@
 //                _showKeyBoardWindowRect = _boardWindow.frame;
 //            }
 //            [self setImgaeNameWithMove:NO];
-            [self moveEndWithMoveView:moveView];
+            [self moveEndWithPanView:panView];
 
         }
     }];
 }
 
 
-- (void)moveEndWithMoveView:(UIView*)moveView
+- (void)moveEndWithPanView:(UIView*)panView
 {
-    if (moveView.frame.origin.y <= 40) {
-        if (moveView.frame.origin.x < 0) {
-            [moveView setCenter:(CGPoint){moveView.frame.size.width/2,moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_left;
-        }else if (moveView.frame.origin.x + moveView.frame.size.width > windowWidth) {
-            [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_right;
+    if (self.attractionsGapForTopOrBottom < 0) {
+        self.attractionsGapForTopOrBottom = panView.bounds.size.height/2;
+    }
+    if (panView.frame.origin.y <= self.attractionsGapForTopOrBottom) {
+        if (panView.frame.origin.x < 0) {
+            //left-top
+            [panView setCenter:(CGPoint){panView.frame.size.width/2,panView.frame.size.height/2}];
+        }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth) {
+            //right-top
+            [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,panView.frame.size.height/2}];
         }else
         {
-            [moveView setCenter:(CGPoint){moveView.center.x,moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_top;
+            //top
+            [panView setCenter:(CGPoint){panView.center.x,panView.frame.size.height/2}];
         }
-    }else if (moveView.frame.origin.y + moveView.frame.size.height >= windowHight - 40)
+    }else if (panView.frame.origin.y + panView.frame.size.height >= windowHight - self.attractionsGapForTopOrBottom)
     {
-        if (moveView.frame.origin.x < 0) {
-            [moveView setCenter:(CGPoint){moveView.frame.size.width/2,windowHight - moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_left;
-        }else if (moveView.frame.origin.x + moveView.frame.size.width > windowWidth) {
-            [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,windowHight - moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_right;
+        if (panView.frame.origin.x < 0) {
+            //left
+            [panView setCenter:(CGPoint){panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
+        }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth) {
+            //right
+            [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
         }else
         {
-            [moveView setCenter:(CGPoint){moveView.center.x,windowHight - moveView.frame.size.height/2}];
-//            _locationTag = kLocationTag_bottom;
+            //bottom
+            [panView setCenter:(CGPoint){panView.center.x,windowHight - panView.frame.size.height/2}];
         }
     }else
     {
-        if (moveView.frame.origin.x + moveView.frame.size.width/2 < windowWidth/2) {
-            if (moveView.frame.origin.x !=0) {
-                [moveView setCenter:(CGPoint){moveView.frame.size.width/2,moveView.center.y}];
+        if (panView.frame.origin.x + panView.frame.size.width/2 < windowWidth/2) {
+            if (panView.frame.origin.x !=0) {
+                [panView setCenter:(CGPoint){panView.frame.size.width/2,panView.center.y}];
             }
 //            _locationTag = kLocationTag_left;
         }else
         {
-            if (moveView.frame.origin.x + moveView.frame.size.width != windowWidth) {
-                [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,moveView.center.y}];
+            if (panView.frame.origin.x + panView.frame.size.width != windowWidth) {
+                [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,panView.center.y}];
             }
 //            _locationTag = kLocationTag_right;
         }
@@ -243,9 +243,10 @@
     }else {
         self.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
     }
-    
     self.prefersStatusBarHidden = NO;
     self.preferredStatusBarStyle = UIStatusBarStyleDefault;
+    
+    self.attractionsGapForTopOrBottom = -1;
     
 }
 @end
