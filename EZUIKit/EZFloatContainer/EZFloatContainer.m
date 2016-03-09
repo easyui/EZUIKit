@@ -257,6 +257,9 @@
 #pragma mark - KeyBoard Notification
 -(void)keyboardFrameWillShow:(NSNotification *)notification
 {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        return;
+    }
     NSDictionary* info = [notification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     NSNumber *duration = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
@@ -274,6 +277,9 @@
 
 -(void)keyboardFrameWillHide:(NSNotification *)notification
 {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        return;
+    }
     self.isShowKeyBoard = NO;
     if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height >= windowHeight - self.keyBoardSize.height) {
         NSDictionary* info = [notification userInfo];
