@@ -16,9 +16,14 @@
 
 @property (strong, nonatomic) UIWindow * floatWindow;
 //@property (weak, nonatomic) UIViewController *rootViewController;
-@property (assign, nonatomic) CGRect  frame;
+@property (assign, nonatomic) CGRect  frame;//float
+@property (assign, nonatomic)BOOL isShow;//float是否显示
+@property (assign, nonatomic) EZFloatContainerDirectionTag directionTag;
 
-@property (assign, nonatomic)BOOL isShow;
+
+
+@property (assign, nonatomic)BOOL isShowKeyBoard;//键盘是否展开
+@property (assign, nonatomic)CGSize keyBoardSize;//键盘的尺寸
 
 @end
 
@@ -58,6 +63,10 @@
         UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(floatHandlePan:)];
         [self.floatWindow addGestureRecognizer:panGestureRecognizer];
         
+        //键盘
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        
     }
     return self;
 }
@@ -66,41 +75,71 @@
 - (void)floatHandlePan:(UIPanGestureRecognizer*)panGestureRecognizer
 {
     
-    UIView * panView = panGestureRecognizer.view;//panView is floatWindow;
+    UIView * panView = panGestureRecognizer.view;//now panView is floatWindow;
     [UIView animateWithDuration:0.1 animations:^{
         if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
             CGPoint translation = [panGestureRecognizer translationInView:panView];
-            [panView setCenter:(CGPoint){panView.center.x + translation.x, panView.center.y + translation.y}];
+            CGFloat   panCenterY = panView.center.y + translation.y;
+            if (self.isShowKeyBoard && panCenterY > windowHight - self.keyBoardSize.height) {
+                panCenterY = windowHight - self.keyBoardSize.height;
+            }
+            [panView setCenter:(CGPoint){panView.center.x + translation.x, panCenterY}];
             [panGestureRecognizer setTranslation:CGPointZero inView:panView];
-            //            [self setImgaeNameWithMove:YES];
         }
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-//            if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - _keyBoardSize.height) {
-//                if (_showKeyBoard) {
-//                    if (moveView.frame.origin.x < 0) {
-//                        [moveView setCenter:(CGPoint){moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-//                    }else if (moveView.frame.origin.x + moveView.frame.size.width > windowWidth)
-//                    {
-//                        [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-//                    }else
-//                    {
-//                        [moveView setCenter:(CGPoint){moveView.center.x,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-//                    }
-//                    _showKeyBoardWindowRect = CGRectMake(self.floatWindow.frame.origin.x, windowHight - moveView.frame.size.height, 60, 60);
-//                    _locationTag = kLocationTag_bottom;
-//                }else
-//                {
-//                    [self moveEndWithMoveView:moveView];
-//                    _showKeyBoardWindowRect = _boardWindow.frame;
-//                }
-//            }else
-//            {
-//                [self moveEndWithMoveView:moveView];
-//                _showKeyBoardWindowRect = _boardWindow.frame;
-//            }
-//            [self setImgaeNameWithMove:NO];
-            [self moveEndWithPanView:panView];
-
+            //            if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - _keyBoardSize.height) {
+            //                if (_showKeyBoard) {
+            //                    if (moveView.frame.origin.x < 0) {
+            //                        [moveView setCenter:(CGPoint){moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+            //                    }else if (moveView.frame.origin.x + moveView.frame.size.width > windowWidth)
+            //                    {
+            //                        [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+            //                    }else
+            //                    {
+            //                        [moveView setCenter:(CGPoint){moveView.center.x,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+            //                    }
+            //                    _showKeyBoardWindowRect = CGRectMake(self.floatWindow.frame.origin.x, windowHight - moveView.frame.size.height, 60, 60);
+            //                    _locationTag = kLocationTag_bottom;
+            //                }else
+            //                {
+            //                    [self moveEndWithMoveView:moveView];
+            //                    _showKeyBoardWindowRect = _boardWindow.frame;
+            //                }
+            //            }else
+            //            {
+            //                [self moveEndWithMoveView:moveView];
+            //                _showKeyBoardWindowRect = _boardWindow.frame;
+            //            }
+            //            [self setImgaeNameWithMove:NO];
+            if(self.isShowKeyBoard){
+                if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - self.keyBoardSize.height) {
+                    //bottom
+                    if (panView.frame.origin.x < 0) {
+                        //left-bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagLeft;
+                        [panView setCenter:(CGPoint){panView.frame.size.width/2,windowHight - self.keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+                    }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth)
+                    {
+                        //right-bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagRight;
+                        [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,windowHight - self.keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+                    }else
+                    {
+                        //bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom;
+                        [panView setCenter:(CGPoint){panView.center.x,windowHight - self.keyBoardSize.height - self.floatWindow.frame.size.height/2}];
+                    }
+                    //                    _showKeyBoardWindowRect = CGRectMake(self.floatWindow.frame.origin.x, windowHight - panView.frame.size.height, 60, 60);
+                    //                    _locationTag = kLocationTag_bottom;
+                }else{
+                    [self moveEndWithPanView:panView];
+                    
+                }
+                
+            }else{
+                [self moveEndWithPanView:panView];
+            }
+            
         }
     }];
 }
@@ -114,41 +153,49 @@
     if (panView.frame.origin.y <= self.attractionsGapForTopOrBottom) {
         if (panView.frame.origin.x < 0) {
             //left-top
+            self.directionTag = EZFloatContainerDirectionTagTop|EZFloatContainerDirectionTagLeft;
             [panView setCenter:(CGPoint){panView.frame.size.width/2,panView.frame.size.height/2}];
         }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth) {
             //right-top
+            self.directionTag = EZFloatContainerDirectionTagTop|EZFloatContainerDirectionTagRight;
             [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,panView.frame.size.height/2}];
         }else
         {
             //top
+            self.directionTag = EZFloatContainerDirectionTagTop;
             [panView setCenter:(CGPoint){panView.center.x,panView.frame.size.height/2}];
         }
     }else if (panView.frame.origin.y + panView.frame.size.height >= windowHight - self.attractionsGapForTopOrBottom)
     {
         if (panView.frame.origin.x < 0) {
-            //left
+            //left-bottom
+            self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagLeft;
             [panView setCenter:(CGPoint){panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
         }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth) {
-            //right
+            //right-bottom
+            self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagRight;
             [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
         }else
         {
             //bottom
+            self.directionTag = EZFloatContainerDirectionTagBottom;
             [panView setCenter:(CGPoint){panView.center.x,windowHight - panView.frame.size.height/2}];
         }
     }else
     {
         if (panView.frame.origin.x + panView.frame.size.width/2 < windowWidth/2) {
+            self.directionTag = EZFloatContainerDirectionTagLeft;
             if (panView.frame.origin.x !=0) {
                 [panView setCenter:(CGPoint){panView.frame.size.width/2,panView.center.y}];
             }
-//            _locationTag = kLocationTag_left;
+            //            _locationTag = kLocationTag_left;
         }else
         {
+            self.directionTag = EZFloatContainerDirectionTagRight;
             if (panView.frame.origin.x + panView.frame.size.width != windowWidth) {
                 [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,panView.center.y}];
             }
-//            _locationTag = kLocationTag_right;
+            //            _locationTag = kLocationTag_right;
         }
     }
 }
@@ -249,4 +296,37 @@
     self.attractionsGapForTopOrBottom = -1;
     
 }
+
+
+#pragma mark - KeyBoard Notification
+-(void)keyboardFrameWillShow:(NSNotification *)notification
+{
+    NSDictionary* info = [notification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+    NSNumber *duration = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [info objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    self.keyBoardSize = kbSize;
+    self.isShowKeyBoard = YES;
+    [UIView animateWithDuration:[duration floatValue] delay:0 options:[curve intValue] animations:^{
+        if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - kbSize.height) {
+            [self.floatWindow setFrame:CGRectMake(self.floatWindow.frame.origin.x, windowHight - kbSize.height - self.floatWindow.frame.size.height, self.floatWindow.bounds.size.width, self.floatWindow.bounds.size.height)];
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+-(void)keyboardFrameWillHide:(NSNotification *)notification
+{
+    
+    if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height >= windowHight - self.keyBoardSize.height) {
+        NSDictionary* info = [notification userInfo];
+        NSNumber *duration = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+        NSNumber *curve = [info objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+        [UIView animateWithDuration:[duration floatValue] delay:0 options:[curve intValue] animations:^{
+            [self.floatWindow setCenter:(CGPoint){self.floatWindow.center.x,windowHight  - self.floatWindow.frame.size.height/2}];        } completion:^(BOOL finished) {
+                
+            }];}
+}
+
 @end

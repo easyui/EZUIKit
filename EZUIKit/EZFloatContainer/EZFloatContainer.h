@@ -8,12 +8,18 @@
 
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
-
+typedef NS_OPTIONS(NSInteger, EZFloatContainerDirectionTag) {
+    EZFloatContainerDirectionTagLeft     = 1 << 0,
+    EZFloatContainerDirectionTagTop    = 1 << 1,
+    EZFloatContainerDirectionTagRight    = 1 << 2,
+    EZFloatContainerDirectionTagBottom    = 1 << 3,
+};
 @class  EZFloatContainerRootViewController;
 @interface EZFloatContainer : NSObject
 @property (assign, nonatomic,readonly)BOOL isShow;
 
 @property (assign, nonatomic) CGFloat attractionsGapForTopOrBottom;
+@property (assign, nonatomic,readonly) EZFloatContainerDirectionTag directionTag;
 
 
 #pragma mark - Autorotation
