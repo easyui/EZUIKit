@@ -77,7 +77,7 @@
 {
     
     UIView * panView = panGestureRecognizer.view;//now panView is floatWindow;
-    [UIView animateWithDuration:0.1 animations:^{
+    [UIView animateWithDuration:self.panAnimateDuration animations:^{
         if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
             CGPoint translation = [panGestureRecognizer translationInView:panView];
             CGFloat   panCenterY = panView.center.y + translation.y;
@@ -192,6 +192,7 @@
     self.preferredStatusBarStyle = UIStatusBarStyleDefault;
     
     self.attractionsGapForTopOrBottom = -1;
+    self.panAnimateDuration = 0.1;
     
 }
 

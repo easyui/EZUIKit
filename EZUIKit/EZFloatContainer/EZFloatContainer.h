@@ -20,6 +20,8 @@ typedef NS_OPTIONS(NSInteger, EZFloatContainerDirectionTag) {
 
 @property (assign, nonatomic) CGFloat attractionsGapForTopOrBottom;
 @property (assign, nonatomic,readonly) EZFloatContainerDirectionTag directionTag;
+@property (assign, nonatomic) CGFloat panAnimateDuration;//default 0.1
+
 
 
 #pragma mark - Autorotation
