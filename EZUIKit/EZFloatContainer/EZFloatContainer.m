@@ -87,30 +87,6 @@
             [panGestureRecognizer setTranslation:CGPointZero inView:panView];
         }
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-            //            if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - _keyBoardSize.height) {
-            //                if (_showKeyBoard) {
-            //                    if (moveView.frame.origin.x < 0) {
-            //                        [moveView setCenter:(CGPoint){moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-            //                    }else if (moveView.frame.origin.x + moveView.frame.size.width > windowWidth)
-            //                    {
-            //                        [moveView setCenter:(CGPoint){windowWidth - moveView.frame.size.width/2,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-            //                    }else
-            //                    {
-            //                        [moveView setCenter:(CGPoint){moveView.center.x,windowHight - _keyBoardSize.height - self.floatWindow.frame.size.height/2}];
-            //                    }
-            //                    _showKeyBoardWindowRect = CGRectMake(self.floatWindow.frame.origin.x, windowHight - moveView.frame.size.height, 60, 60);
-            //                    _locationTag = kLocationTag_bottom;
-            //                }else
-            //                {
-            //                    [self moveEndWithMoveView:moveView];
-            //                    _showKeyBoardWindowRect = _boardWindow.frame;
-            //                }
-            //            }else
-            //            {
-            //                [self moveEndWithMoveView:moveView];
-            //                _showKeyBoardWindowRect = _boardWindow.frame;
-            //            }
-            //            [self setImgaeNameWithMove:NO];
             if(self.isShowKeyBoard){
                 if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - self.keyBoardSize.height) {
                     //bottom
@@ -129,8 +105,6 @@
                         self.directionTag = EZFloatContainerDirectionTagBottom;
                         [panView setCenter:(CGPoint){panView.center.x,windowHight - self.keyBoardSize.height - self.floatWindow.frame.size.height/2}];
                     }
-                    //                    _showKeyBoardWindowRect = CGRectMake(self.floatWindow.frame.origin.x, windowHight - panView.frame.size.height, 60, 60);
-                    //                    _locationTag = kLocationTag_bottom;
                 }else{
                     [self moveEndWithPanView:panView];
                     
@@ -188,14 +162,12 @@
             if (panView.frame.origin.x !=0) {
                 [panView setCenter:(CGPoint){panView.frame.size.width/2,panView.center.y}];
             }
-            //            _locationTag = kLocationTag_left;
         }else
         {
             self.directionTag = EZFloatContainerDirectionTagRight;
             if (panView.frame.origin.x + panView.frame.size.width != windowWidth) {
                 [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,panView.center.y}];
             }
-            //            _locationTag = kLocationTag_right;
         }
     }
 }
@@ -239,7 +211,7 @@
 
 - (void)onDeviceOrientationChange:(NSNotification *)notification{
     
-    //    self.floatWindow.frame = self.frame;
+        self.floatWindow.frame = self.frame;
     NSLog(@"%@",NSStringFromCGRect(self.floatWindow.frame));
     return;
     
@@ -318,7 +290,7 @@
 
 -(void)keyboardFrameWillHide:(NSNotification *)notification
 {
-    
+    self.isShowKeyBoard = NO;
     if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height >= windowHight - self.keyBoardSize.height) {
         NSDictionary* info = [notification userInfo];
         NSNumber *duration = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
