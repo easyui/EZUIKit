@@ -54,10 +54,10 @@
         
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
         /*
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(onDeviceOrientationChange:)
-                                                     name:UIDeviceOrientationDidChangeNotification
-                                                   object:nil];
+         [[NSNotificationCenter defaultCenter] addObserver:self
+         selector:@selector(onDeviceOrientationChange:)
+         name:UIDeviceOrientationDidChangeNotification
+         object:nil];
          */
         
         
@@ -88,13 +88,114 @@
             [panGestureRecognizer setTranslation:CGPointZero inView:panView];
         }
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-                [self moveEndWithPanView:panView];         
+            [self __moveEndWithPanView:panView];
         }
     }];
 }
 
 
-- (void)moveEndWithPanView:(UIView*)panView
+
+
+
+#pragma mark - action
+
+-(void)show{
+    
+    self.floatWindow.frame =  self.frame;
+    //    if( self.delegate && [self.delegate respondsToSelector:@selector(willshowFloatView:)] ){
+    //        if (![self.delegate willshowFloatView:self]) {
+    //            return;
+    //        }
+    //    }
+    //    [self.castWindow makeKeyAndVisible];
+    self.floatWindow.hidden = NO;
+    self.isShow =  !self.floatWindow.hidden;
+    
+}
+
+-(void)hidden{
+    //    [self.castWindow resignKeyWindow];
+    self.floatWindow.hidden = YES;
+    self.isShow =  !self.floatWindow.hidden;
+    
+}
+
+- (void)addSubview:(UIView *)view{
+    [self.floatWindow.rootViewController.view addSubview:view];
+    view.frame = self.floatWindow.rootViewController.view.bounds;
+}
+
+- (void)addChildViewController:(UIViewController *)childController{
+    [self.floatWindow.rootViewController addChildViewController:childController];
+}
+
+
+#pragma mark - Orientation
+/*
+ #define DegreesToRadians(degrees) (degrees * M_PI / 180)
+ 
+ - (void)onDeviceOrientationChange:(NSNotification *)notification{
+ 
+ self.floatWindow.frame = self.frame;
+ NSLog(@"%@",NSStringFromCGRect(self.floatWindow.frame));
+ return;
+ 
+ UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+ UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
+ switch (interfaceOrientation) {
+ case UIInterfaceOrientationPortraitUpsideDown:{
+ NSLog(@"第3个旋转方向---电池栏在下");
+ self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
+ break;
+ 
+ }
+ case UIInterfaceOrientationPortrait:{
+ NSLog(@"第0个旋转方向---电池栏在上");
+ self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
+ 
+ break;
+ 
+ 
+ }
+ case UIInterfaceOrientationLandscapeLeft:{
+ NSLog(@"第2个旋转方向---电池栏在左");
+ self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
+ 
+ break;
+ 
+ 
+ }
+ case UIInterfaceOrientationLandscapeRight:{
+ NSLog(@"第1个旋转方向---电池栏在右");
+ self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
+ 
+ break;
+ 
+ 
+ }
+ default:
+ break;
+ }
+ }
+ */
+
+#pragma mark - private
+
+- (void)__commonInit{
+    self.shouldAutorotate = YES;
+    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
+        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
+    }else {
+        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
+    }
+    self.prefersStatusBarHidden = NO;
+    self.preferredStatusBarStyle = UIStatusBarStyleDefault;
+    
+    self.attractionsGapForTopOrBottom = -1;
+    
+}
+
+- (void)__moveEndWithPanView:(UIView*)panView
 {
     CGFloat movedSpaceHeight = windowHeight;
     if(self.isShowKeyBoard){
@@ -149,105 +250,6 @@
             }
         }
     }
-}
-
-
-#pragma mark - action
-
--(void)show{
-    
-    self.floatWindow.frame =  self.frame;
-    //    if( self.delegate && [self.delegate respondsToSelector:@selector(willshowFloatView:)] ){
-    //        if (![self.delegate willshowFloatView:self]) {
-    //            return;
-    //        }
-    //    }
-    //    [self.castWindow makeKeyAndVisible];
-    self.floatWindow.hidden = NO;
-    self.isShow =  !self.floatWindow.hidden;
-    
-}
-
--(void)hidden{
-    //    [self.castWindow resignKeyWindow];
-    self.floatWindow.hidden = YES;
-    self.isShow =  !self.floatWindow.hidden;
-    
-}
-
-- (void)addSubview:(UIView *)view{
-    [self.floatWindow.rootViewController.view addSubview:view];
-    view.frame = self.floatWindow.rootViewController.view.bounds;
-}
-
-- (void)addChildViewController:(UIViewController *)childController{
-    [self.floatWindow.rootViewController addChildViewController:childController];
-}
-
-
-#pragma mark - Orientation
-/*
-#define DegreesToRadians(degrees) (degrees * M_PI / 180)
-
-- (void)onDeviceOrientationChange:(NSNotification *)notification{
-    
-        self.floatWindow.frame = self.frame;
-    NSLog(@"%@",NSStringFromCGRect(self.floatWindow.frame));
-    return;
-    
-    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
-    switch (interfaceOrientation) {
-        case UIInterfaceOrientationPortraitUpsideDown:{
-            NSLog(@"第3个旋转方向---电池栏在下");
-            self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
-            break;
-            
-        }
-        case UIInterfaceOrientationPortrait:{
-            NSLog(@"第0个旋转方向---电池栏在上");
-            self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
-            
-            break;
-            
-            
-        }
-        case UIInterfaceOrientationLandscapeLeft:{
-            NSLog(@"第2个旋转方向---电池栏在左");
-            self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
-            
-            break;
-            
-            
-        }
-        case UIInterfaceOrientationLandscapeRight:{
-            NSLog(@"第1个旋转方向---电池栏在右");
-            self.floatWindow.transform = CGAffineTransformMakeRotation(DegreesToRadians(180));
-            
-            break;
-            
-            
-        }
-        default:
-            break;
-    }
-}
- */
-
-#pragma mark - private
-
-- (void)__commonInit{
-    self.shouldAutorotate = YES;
-    if (UIUserInterfaceIdiomPad == UI_USER_INTERFACE_IDIOM()) {
-        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskLandscape;
-    }else {
-        self.supportedInterfaceOrientations = UIInterfaceOrientationMaskPortrait;
-    }
-    self.prefersStatusBarHidden = NO;
-    self.preferredStatusBarStyle = UIStatusBarStyleDefault;
-    
-    self.attractionsGapForTopOrBottom = -1;
-    
 }
 
 
