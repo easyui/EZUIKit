@@ -9,7 +9,7 @@
 #import "EZFloatContainer.h"
 #import "EZFloatContainerRootViewController.h"
 #define  windowWidth ([UIScreen mainScreen].bounds.size.width)
-#define  windowHeight ([UIScreen mainScreen].bounds.size.height)
+#define  windowHight ([UIScreen mainScreen].bounds.size.height)
 
 
 @interface EZFloatContainer ()
@@ -81,14 +81,40 @@
         if (panGestureRecognizer.state == UIGestureRecognizerStateBegan || panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
             CGPoint translation = [panGestureRecognizer translationInView:panView];
             CGFloat   panCenterY = panView.center.y + translation.y;
-            if (self.isShowKeyBoard && panCenterY > windowHeight - self.keyBoardSize.height) {
-                panCenterY = windowHeight - self.keyBoardSize.height;
+            if (self.isShowKeyBoard && panCenterY > windowHight - self.keyBoardSize.height) {
+                panCenterY = windowHight - self.keyBoardSize.height;
             }
             [panView setCenter:(CGPoint){panView.center.x + translation.x, panCenterY}];
             [panGestureRecognizer setTranslation:CGPointZero inView:panView];
         }
         if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
-                [self moveEndWithPanView:panView];         
+            if(self.isShowKeyBoard){
+                if (panView.frame.origin.y + panView.frame.size.height > windowHight - self.keyBoardSize.height) {
+                    //bottom
+                    if (panView.frame.origin.x < 0) {
+                        //left-bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagLeft;
+                        [panView setCenter:(CGPoint){panView.frame.size.width/2,windowHight - self.keyBoardSize.height - panView.frame.size.height/2}];
+                    }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth)
+                    {
+                        //right-bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagRight;
+                        [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,windowHight - self.keyBoardSize.height - panView.frame.size.height/2}];
+                    }else
+                    {
+                        //bottom
+                        self.directionTag = EZFloatContainerDirectionTagBottom;
+                        [panView setCenter:(CGPoint){panView.center.x,windowHight - self.keyBoardSize.height - panView.frame.size.height/2}];
+                    }
+                }else{
+                    [self moveEndWithPanView:panView];
+                    
+                }
+                
+            }else{
+                [self moveEndWithPanView:panView];
+            }
+            
         }
     }];
 }
@@ -96,10 +122,6 @@
 
 - (void)moveEndWithPanView:(UIView*)panView
 {
-    CGFloat movedSpaceHeight = windowHeight;
-    if(self.isShowKeyBoard){
-        movedSpaceHeight -= self.keyBoardSize.height;
-    }
     if (self.attractionsGapForTopOrBottom < 0) {
         self.attractionsGapForTopOrBottom = panView.bounds.size.height/2;
     }
@@ -118,21 +140,21 @@
             self.directionTag = EZFloatContainerDirectionTagTop;
             [panView setCenter:(CGPoint){panView.center.x,panView.frame.size.height/2}];
         }
-    }else if (panView.frame.origin.y + panView.frame.size.height >= movedSpaceHeight - self.attractionsGapForTopOrBottom)
+    }else if (panView.frame.origin.y + panView.frame.size.height >= windowHight - self.attractionsGapForTopOrBottom)
     {
         if (panView.frame.origin.x < 0) {
             //left-bottom
             self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagLeft;
-            [panView setCenter:(CGPoint){panView.frame.size.width/2,movedSpaceHeight - panView.frame.size.height/2}];
+            [panView setCenter:(CGPoint){panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
         }else if (panView.frame.origin.x + panView.frame.size.width > windowWidth) {
             //right-bottom
             self.directionTag = EZFloatContainerDirectionTagBottom|EZFloatContainerDirectionTagRight;
-            [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,movedSpaceHeight - panView.frame.size.height/2}];
+            [panView setCenter:(CGPoint){windowWidth - panView.frame.size.width/2,windowHight - panView.frame.size.height/2}];
         }else
         {
             //bottom
             self.directionTag = EZFloatContainerDirectionTagBottom;
-            [panView setCenter:(CGPoint){panView.center.x,movedSpaceHeight - panView.frame.size.height/2}];
+            [panView setCenter:(CGPoint){panView.center.x,windowHight - panView.frame.size.height/2}];
         }
     }else
     {
@@ -261,8 +283,8 @@
     self.keyBoardSize = kbSize;
     self.isShowKeyBoard = YES;
     [UIView animateWithDuration:[duration floatValue] delay:0 options:[curve intValue] animations:^{
-        if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHeight - kbSize.height) {
-            [self.floatWindow setFrame:CGRectMake(self.floatWindow.frame.origin.x, windowHeight - kbSize.height - self.floatWindow.frame.size.height, self.floatWindow.bounds.size.width, self.floatWindow.bounds.size.height)];
+        if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height > windowHight - kbSize.height) {
+            [self.floatWindow setFrame:CGRectMake(self.floatWindow.frame.origin.x, windowHight - kbSize.height - self.floatWindow.frame.size.height, self.floatWindow.bounds.size.width, self.floatWindow.bounds.size.height)];
         }
     } completion:^(BOOL finished) {
         
@@ -272,12 +294,12 @@
 -(void)keyboardFrameWillHide:(NSNotification *)notification
 {
     self.isShowKeyBoard = NO;
-    if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height >= windowHeight - self.keyBoardSize.height) {
+    if (self.floatWindow.frame.origin.y + self.floatWindow.frame.size.height >= windowHight - self.keyBoardSize.height) {
         NSDictionary* info = [notification userInfo];
         NSNumber *duration = [info objectForKey:UIKeyboardAnimationDurationUserInfoKey];
         NSNumber *curve = [info objectForKey:UIKeyboardAnimationCurveUserInfoKey];
         [UIView animateWithDuration:[duration floatValue] delay:0 options:[curve intValue] animations:^{
-            [self.floatWindow setCenter:(CGPoint){self.floatWindow.center.x,windowHeight  - self.floatWindow.frame.size.height/2}];        } completion:^(BOOL finished) {
+            [self.floatWindow setCenter:(CGPoint){self.floatWindow.center.x,windowHight  - self.floatWindow.frame.size.height/2}];        } completion:^(BOOL finished) {
                 
             }];}
 }
