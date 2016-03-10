@@ -63,6 +63,7 @@
         
         UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(floatHandlePan:)];
         [self.floatWindow addGestureRecognizer:panGestureRecognizer];
+
         
         //键盘
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardFrameWillHide:) name:UIKeyboardWillHideNotification object:nil];
