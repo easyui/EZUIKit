@@ -32,6 +32,8 @@
 		993927B51C8C90EC00112509 /* EZFloatContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 993927B11C8C90EC00112509 /* EZFloatContainer.m */; };
 		993927B61C8C90EC00112509 /* EZFloatContainerRootViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 993927B21C8C90EC00112509 /* EZFloatContainerRootViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */; };
+		99EAA4041C984CA700F4D4C1 /* EZPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = 99EAA4021C984CA700F4D4C1 /* EZPreviewView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99EAA4051C984CA700F4D4C1 /* EZPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		993927B11C8C90EC00112509 /* EZFloatContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFloatContainer.m; sourceTree = "<group>"; };
 		993927B21C8C90EC00112509 /* EZFloatContainerRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZFloatContainerRootViewController.h; sourceTree = "<group>"; };
 		993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFloatContainerRootViewController.m; sourceTree = "<group>"; };
+		99EAA4021C984CA700F4D4C1 /* EZPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZPreviewView.h; sourceTree = "<group>"; };
+		99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZPreviewView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 		9930A55A1C4DD730006F1E14 /* EZUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				99EAA4011C984CA700F4D4C1 /* EZPreviewView */,
 				993927AF1C8C90EC00112509 /* EZFloatContainer */,
 				9930A5721C4DE456006F1E14 /* EZWebViewController */,
 				9930A55B1C4DD730006F1E14 /* EZUIKit.h */,
@@ -140,6 +145,15 @@
 			path = EZFloatContainer;
 			sourceTree = "<group>";
 		};
+		99EAA4011C984CA700F4D4C1 /* EZPreviewView */ = {
+			isa = PBXGroup;
+			children = (
+				99EAA4021C984CA700F4D4C1 /* EZPreviewView.h */,
+				99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */,
+			);
+			path = EZPreviewView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -148,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				993927B41C8C90EC00112509 /* EZFloatContainer.h in Headers */,
+				99EAA4041C984CA700F4D4C1 /* EZPreviewView.h in Headers */,
 				993927B61C8C90EC00112509 /* EZFloatContainerRootViewController.h in Headers */,
 				9930A55C1C4DD730006F1E14 /* EZUIKit.h in Headers */,
 				9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */,
@@ -272,6 +287,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */,
+				99EAA4051C984CA700F4D4C1 /* EZPreviewView.m in Sources */,
 				9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */,
 				993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */,
 				993927B51C8C90EC00112509 /* EZFloatContainer.m in Sources */,

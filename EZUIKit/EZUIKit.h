@@ -28,4 +28,5 @@ FOUNDATION_EXPORT const unsigned char EZUIKitVersionString[];
 #pragma mark - EZFloatContainer
 #import <EZUIKit/EZFloatContainerRootViewController.h>
 #import <EZUIKit/EZFloatContainer.h>
-
+#pragma mark - EZPreviewView
+#import <EZUIKit/EZPreviewView.h>
