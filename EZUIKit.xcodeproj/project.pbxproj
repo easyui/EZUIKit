@@ -105,6 +105,7 @@
 		9930A55A1C4DD730006F1E14 /* EZUIKit */ = {
 			isa = PBXGroup;
 			children = (
+				99EAA40B1C985A6C00F4D4C1 /* EZNestedTableView */,
 				99EAA4011C984CA700F4D4C1 /* EZPreviewView */,
 				993927AF1C8C90EC00112509 /* EZFloatContainer */,
 				9930A5721C4DE456006F1E14 /* EZWebViewController */,
@@ -152,6 +153,13 @@
 				99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */,
 			);
 			path = EZPreviewView;
+			sourceTree = "<group>";
+		};
+		99EAA40B1C985A6C00F4D4C1 /* EZNestedTableView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EZNestedTableView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
