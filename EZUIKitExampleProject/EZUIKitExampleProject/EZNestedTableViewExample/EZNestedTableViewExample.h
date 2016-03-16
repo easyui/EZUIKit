@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <EZUIKit/EZUIKit.h>
+#import <EZUIKit/EZNestedTableView.h>
 
 @interface EZNestedTableViewExample : UIViewController
 

@@ -10,7 +10,6 @@
 
 
 @interface EZNestedTableView ()
-@property(nonatomic,strong) UITableView *tableView;
 
 @end
 
@@ -75,25 +74,44 @@
     
 }
 
+- (NSObject<EZNestedTableViewSectionModelProtocol> *)__sectionModelAtIndex:(NSUInteger)index{
+    if( index < self.sectionModels.count){
+        NSObject * model = [self.sectionModels objectAtIndex:index];
+        if([model conformsToProtocol:@protocol(EZNestedTableViewSectionModelProtocol)]){
+            return ((NSObject<EZNestedTableViewSectionModelProtocol> * )model);
+        }
+    }
+    return nil;
+}
 
 
 
 #pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.sectionModels.count;
+}
+
+- ( NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
+    return sectionModel.name;
+}
+
+
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
+{
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:sectionIndex];
+    return sectionModel.isExpaned?sectionModel.cellItems.count:0;
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
-{
-    return 16;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,6 +134,10 @@
 {
     NSLog(@"%@",NSStringFromSelector(_cmd));
 }
+
+
+
+#pragma mark - UITableViewDataSource
 
 
 @end

@@ -17,6 +17,8 @@
 		9930A5CA1C4DEA3D006F1E14 /* EZUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9930A5C31C4DE975006F1E14 /* EZUIKit.framework */; };
 		9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */; };
 		99EAA4181C9912B900F4D4C1 /* EZNestedTableViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */; };
+		99EAA4201C993D1400F4D4C1 /* SectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA41F1C993D1400F4D4C1 /* SectionModel.m */; };
+		99EAA4231C993D2600F4D4C1 /* CellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4221C993D2600F4D4C1 /* CellModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,10 @@
 		9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewControllerExample.m; sourceTree = "<group>"; };
 		99EAA4161C9912B900F4D4C1 /* EZNestedTableViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZNestedTableViewExample.h; sourceTree = "<group>"; };
 		99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZNestedTableViewExample.m; sourceTree = "<group>"; };
+		99EAA41E1C993D1400F4D4C1 /* SectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionModel.h; sourceTree = "<group>"; };
+		99EAA41F1C993D1400F4D4C1 /* SectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionModel.m; sourceTree = "<group>"; };
+		99EAA4211C993D2600F4D4C1 /* CellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellModel.h; sourceTree = "<group>"; };
+		99EAA4221C993D2600F4D4C1 /* CellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CellModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +197,10 @@
 			children = (
 				99EAA4161C9912B900F4D4C1 /* EZNestedTableViewExample.h */,
 				99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */,
+				99EAA41E1C993D1400F4D4C1 /* SectionModel.h */,
+				99EAA41F1C993D1400F4D4C1 /* SectionModel.m */,
+				99EAA4211C993D2600F4D4C1 /* CellModel.h */,
+				99EAA4221C993D2600F4D4C1 /* CellModel.m */,
 			);
 			path = EZNestedTableViewExample;
 			sourceTree = "<group>";
@@ -349,10 +359,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99EAA4201C993D1400F4D4C1 /* SectionModel.m in Sources */,
 				9930A58D1C4DE88A006F1E14 /* AppDelegate.m in Sources */,
 				9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */,
 				99EAA4181C9912B900F4D4C1 /* EZNestedTableViewExample.m in Sources */,
 				9930A58A1C4DE88A006F1E14 /* main.m in Sources */,
+				99EAA4231C993D2600F4D4C1 /* CellModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
