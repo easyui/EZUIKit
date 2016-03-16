@@ -150,8 +150,9 @@
     
     NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
                                                        forSectionMode:model];
-    
-    [headerFooterView tableView:tableView sectionHeaderView:headerFooterView forSection:section expanded:model.isExpaned animated:YES];
+    if([headerFooterView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
+        [headerFooterView tableView:tableView sectionHeaderView:headerFooterView forSection:section expanded:model.isExpaned animated:YES];
+    }
     if (model.isExpaned) {
         [tableView insertRowsAtIndexPaths:indexPaths
                          withRowAnimation:animation];
@@ -194,8 +195,9 @@
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionMode = [self __sectionModelAtIndex:section];
     if ([view conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
         UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol>* headerView = (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol>*)view;
-        [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:sectionMode.isExpaned animated:NO];
-        
+        if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
+            [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:sectionMode.isExpaned animated:NO];
+        }
     }
 }
 

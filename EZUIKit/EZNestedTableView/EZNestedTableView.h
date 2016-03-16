@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - EZNestedTableViewCellModelProtocol
 
 @protocol EZNestedTableViewCellModelProtocol <NSObject>
+@required
 @property (nonatomic, assign) BOOL isSubTitle;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL ischecked;
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - EZNestedTableViewSectionModelProtocol
 
 @protocol EZNestedTableViewSectionModelProtocol <NSObject>
+@required
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) BOOL isExpaned;
 @property (nonatomic, copy) NSMutableArray<EZNestedTableViewCellModelProtocol> *selectedItems;
@@ -31,16 +33,19 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol EZNestedTableViewSectionHeaderProtocol;
 
 @protocol EZNestedTableViewSectionHeaderInteractionProtocol <NSObject>
-
+@required
 -(void)tappedHeaderFooterView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView atPoint:(CGPoint)point;
 
 @end
 
 @protocol EZNestedTableViewSectionHeaderProtocol <NSObject>
-
+@required
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) id <EZNestedTableViewSectionHeaderInteractionProtocol> interactionDelegate;
+
+@optional
 - (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
+
 @end
 
 
