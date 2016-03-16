@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
-
+#pragma mark -
 #pragma mark - EZNestedTableViewCellModelProtocol
 
 @protocol EZNestedTableViewCellModelProtocol <NSObject>
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<EZNestedTableViewCellModelProtocol> *cellItems;
 @end
 
-
+#pragma mark -
 #pragma mark - EZNestedTableViewSectionHeaderInteractionProtocol
 
 @protocol EZNestedTableViewSectionHeaderProtocol;
@@ -51,7 +51,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
 @end
 
+#pragma mark -
+#pragma mark - EZNestedTableViewCellProtocol
 
+@protocol EZNestedTableViewCellProtocol <NSObject>
+@required
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+
+@optional
+
+@end
+#pragma mark -
 #pragma mark - EZNestedTableView
 
 @interface EZNestedTableView : UIView <UITableViewDataSource, UITableViewDelegate>
@@ -60,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) IBInspectable NSString * sectionHeaderNibName;
 @property (nonatomic, assign) IBInspectable CGFloat  sectionHeaderHeight;
 
+@property (nonatomic, copy) IBInspectable NSString * tableViewCellNibName;
 
 @property (nullable, nonatomic, copy) NSArray<EZNestedTableViewSectionModelProtocol> *sectionModels;
 
