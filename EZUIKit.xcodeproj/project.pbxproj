@@ -34,6 +34,8 @@
 		993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */; };
 		99EAA4041C984CA700F4D4C1 /* EZPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = 99EAA4021C984CA700F4D4C1 /* EZPreviewView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		99EAA4051C984CA700F4D4C1 /* EZPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */; };
+		99EAA4111C990FEB00F4D4C1 /* EZNestedTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 99EAA40F1C990FEB00F4D4C1 /* EZNestedTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		99EAA4121C990FEB00F4D4C1 /* EZNestedTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4101C990FEB00F4D4C1 /* EZNestedTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		993927B31C8C90EC00112509 /* EZFloatContainerRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZFloatContainerRootViewController.m; sourceTree = "<group>"; };
 		99EAA4021C984CA700F4D4C1 /* EZPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZPreviewView.h; sourceTree = "<group>"; };
 		99EAA4031C984CA700F4D4C1 /* EZPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZPreviewView.m; sourceTree = "<group>"; };
+		99EAA40F1C990FEB00F4D4C1 /* EZNestedTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZNestedTableView.h; sourceTree = "<group>"; };
+		99EAA4101C990FEB00F4D4C1 /* EZNestedTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZNestedTableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +162,8 @@
 		99EAA40B1C985A6C00F4D4C1 /* EZNestedTableView */ = {
 			isa = PBXGroup;
 			children = (
+				99EAA40F1C990FEB00F4D4C1 /* EZNestedTableView.h */,
+				99EAA4101C990FEB00F4D4C1 /* EZNestedTableView.m */,
 			);
 			path = EZNestedTableView;
 			sourceTree = "<group>";
@@ -174,6 +180,7 @@
 				993927B61C8C90EC00112509 /* EZFloatContainerRootViewController.h in Headers */,
 				9930A55C1C4DD730006F1E14 /* EZUIKit.h in Headers */,
 				9930A6141C4E424F006F1E14 /* EZWebViewToolView.h in Headers */,
+				99EAA4111C990FEB00F4D4C1 /* EZNestedTableView.h in Headers */,
 				9930A5751C4DE4C4006F1E14 /* EZWebViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -295,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9930A6151C4E424F006F1E14 /* EZWebViewToolView.m in Sources */,
+				99EAA4121C990FEB00F4D4C1 /* EZNestedTableView.m in Sources */,
 				99EAA4051C984CA700F4D4C1 /* EZPreviewView.m in Sources */,
 				9930A5761C4DE4C4006F1E14 /* EZWebViewController.m in Sources */,
 				993927B71C8C90EC00112509 /* EZFloatContainerRootViewController.m in Sources */,
