@@ -32,18 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol EZNestedTableViewSectionHeaderInteractionProtocol <NSObject>
 
--(void)TappedHeaderFooterView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView atPoint:(CGPoint)point;
+-(void)tappedHeaderFooterView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView atPoint:(CGPoint)point;
 
 @end
 
-@protocol RRNCollapsableTableViewSectionHeaderProtocol <NSObject>
+@protocol EZNestedTableViewSectionHeaderProtocol <NSObject>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) id <EZNestedTableViewSectionHeaderInteractionProtocol> interactionDelegate;
-
--(void)openAnimated:(BOOL)animated;
--(void)closeAnimated:(BOOL)animated;
-
+- (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
 @end
 
 
@@ -51,12 +48,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface EZNestedTableView : UIView <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign) IBInspectable BOOL isSingleExpanedOnly;
+
+@property (nonatomic, copy) IBInspectable NSString * sectionHeaderNibName;
+@property (nonatomic, assign) IBInspectable CGFloat  sectionHeaderHeight;
+
+
 @property (nullable, nonatomic, copy) NSArray<EZNestedTableViewSectionModelProtocol> *sectionModels;
 
 
 
 //private
-@property(nonatomic,strong) UITableView *tableView;
+@property(nullable,nonatomic,strong) UITableView *tableView;
 
 @end
 NS_ASSUME_NONNULL_END
