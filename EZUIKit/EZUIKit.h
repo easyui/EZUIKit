@@ -30,3 +30,5 @@ FOUNDATION_EXPORT const unsigned char EZUIKitVersionString[];
 #import <EZUIKit/EZFloatContainer.h>
 #pragma mark - EZPreviewView
 #import <EZUIKit/EZPreviewView.h>
+#pragma mark - EZNestedTableView
+#import <EZUIKit/EZNestedTableView.h>
