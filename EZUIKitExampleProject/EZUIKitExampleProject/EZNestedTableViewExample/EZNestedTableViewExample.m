@@ -28,7 +28,7 @@
         for (NSInteger j = 0; j < 5; j++) {
             
             CellModel *cell = [[CellModel alloc] init];
-            cell.title = [NSString stringWithFormat:@"cell %ld",(long)i];
+            cell.title = [NSString stringWithFormat:@"cell %ld %ld",(long)i, (long)j];
             [cells addObject:cell];
         }
 
@@ -41,7 +41,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.nestedTableView.sectionHeaderHeight = 50;
     self.nestedTableView.sectionModels = [EZNestedTableViewExample buildSectionModel];
+    self.nestedTableView.sectionHeaderNibName = @"EZNestedTableViewSectionHeaderView";
     [self.nestedTableView.tableView reloadData];
 }
 
