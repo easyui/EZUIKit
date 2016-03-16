@@ -21,6 +21,8 @@
 		99EAA4231C993D2600F4D4C1 /* CellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4221C993D2600F4D4C1 /* CellModel.m */; };
 		99EAA4261C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4251C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.m */; };
 		99EAA4281C99569400F4D4C1 /* EZNestedTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99EAA4271C99569400F4D4C1 /* EZNestedTableViewSectionHeaderView.xib */; };
+		99EAA42C1C99AB3200F4D4C1 /* EZNestedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA42A1C99AB3200F4D4C1 /* EZNestedTableViewCell.m */; };
+		99EAA42D1C99AB3200F4D4C1 /* EZNestedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99EAA42B1C99AB3200F4D4C1 /* EZNestedTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +90,9 @@
 		99EAA4241C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZNestedTableViewSectionHeaderView.h; sourceTree = "<group>"; };
 		99EAA4251C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZNestedTableViewSectionHeaderView.m; sourceTree = "<group>"; };
 		99EAA4271C99569400F4D4C1 /* EZNestedTableViewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EZNestedTableViewSectionHeaderView.xib; sourceTree = "<group>"; };
+		99EAA4291C99AB3200F4D4C1 /* EZNestedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZNestedTableViewCell.h; sourceTree = "<group>"; };
+		99EAA42A1C99AB3200F4D4C1 /* EZNestedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZNestedTableViewCell.m; sourceTree = "<group>"; };
+		99EAA42B1C99AB3200F4D4C1 /* EZNestedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EZNestedTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +210,9 @@
 				99EAA4241C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.h */,
 				99EAA4251C99568800F4D4C1 /* EZNestedTableViewSectionHeaderView.m */,
 				99EAA4271C99569400F4D4C1 /* EZNestedTableViewSectionHeaderView.xib */,
+				99EAA4291C99AB3200F4D4C1 /* EZNestedTableViewCell.h */,
+				99EAA42A1C99AB3200F4D4C1 /* EZNestedTableViewCell.m */,
+				99EAA42B1C99AB3200F4D4C1 /* EZNestedTableViewCell.xib */,
 				99EAA41E1C993D1400F4D4C1 /* SectionModel.h */,
 				99EAA41F1C993D1400F4D4C1 /* SectionModel.m */,
 				99EAA4211C993D2600F4D4C1 /* CellModel.h */,
@@ -344,6 +352,7 @@
 				99EAA4281C99569400F4D4C1 /* EZNestedTableViewSectionHeaderView.xib in Resources */,
 				9930A5951C4DE88A006F1E14 /* Assets.xcassets in Resources */,
 				9930A5931C4DE88A006F1E14 /* Main.storyboard in Resources */,
+				99EAA42D1C99AB3200F4D4C1 /* EZNestedTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +384,7 @@
 				99EAA4181C9912B900F4D4C1 /* EZNestedTableViewExample.m in Sources */,
 				9930A58A1C4DE88A006F1E14 /* main.m in Sources */,
 				99EAA4231C993D2600F4D4C1 /* CellModel.m in Sources */,
+				99EAA42C1C99AB3200F4D4C1 /* EZNestedTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

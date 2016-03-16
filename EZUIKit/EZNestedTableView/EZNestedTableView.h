@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL ischecked;
 @end
+
 #pragma mark - EZNestedTableViewSectionModelProtocol
 
 @protocol EZNestedTableViewSectionModelProtocol <NSObject>
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-#pragma mark - RRNCollapsableTableViewSectionHeaderProtocol
+#pragma mark - EZNestedTableViewSectionHeaderInteractionProtocol
 
 @protocol EZNestedTableViewSectionHeaderProtocol;
 
@@ -38,6 +39,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - EZNestedTableViewSectionHeaderProtocol
+
 @protocol EZNestedTableViewSectionHeaderProtocol <NSObject>
 @required
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -45,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section; 
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
 @end
 
 
