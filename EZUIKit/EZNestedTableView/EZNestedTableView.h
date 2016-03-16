@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark - EZNestedTableViewCellModelProtocol
 
 @protocol EZNestedTableViewCellModelProtocol <NSObject>
 @property (nonatomic, assign) BOOL isSubTitle;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL ischecked;
 @end
+#pragma mark - EZNestedTableViewSectionModelProtocol
 
 @protocol EZNestedTableViewSectionModelProtocol <NSObject>
 @property (nonatomic, copy) NSString *name;
@@ -23,6 +25,29 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSArray<EZNestedTableViewCellModelProtocol> *cellItems;
 @end
 
+
+#pragma mark - RRNCollapsableTableViewSectionHeaderProtocol
+
+@protocol EZNestedTableViewSectionHeaderProtocol;
+
+@protocol EZNestedTableViewSectionHeaderInteractionProtocol <NSObject>
+
+-(void)TappedHeaderFooterView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView atPoint:(CGPoint)point;
+
+@end
+
+@protocol RRNCollapsableTableViewSectionHeaderProtocol <NSObject>
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) id <EZNestedTableViewSectionHeaderInteractionProtocol> interactionDelegate;
+
+-(void)openAnimated:(BOOL)animated;
+-(void)closeAnimated:(BOOL)animated;
+
+@end
+
+
+#pragma mark - EZNestedTableView
 
 @interface EZNestedTableView : UIView <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, assign) IBInspectable BOOL isSingleExpanedOnly;
