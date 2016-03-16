@@ -146,12 +146,12 @@
                                        withModel:(NSObject<EZNestedTableViewSectionModelProtocol>*)model
                                      inTableView:(UITableView *)tableView
                                usingRowAnimation:(UITableViewRowAnimation)animation
-                  forSectionWithHeaderFooterView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView {
+                  forSectionWithHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView {
     
     NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
                                                        forSectionMode:model];
-    if([headerFooterView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
-        [headerFooterView tableView:tableView sectionHeaderView:headerFooterView forSection:section expanded:model.isExpaned animated:YES];
+    if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
+        [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:model.isExpaned animated:YES];
     }
     if (model.isExpaned) {
         [tableView insertRowsAtIndexPaths:indexPaths
@@ -214,6 +214,10 @@
     headerView.interactionDelegate = self;
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
     headerView.titleLabel.text = sectionModel.name;
+    
+    if([headerView respondsToSelector:@selector(tableView:viewForHeaderInSection:)]){
+        [headerView tableView:tableView viewForHeaderInSection:section];
+    }
     return headerView;
 }
 
@@ -277,7 +281,7 @@
                                                   withModel:sectionMode
                                                 inTableView:self.tableView
                                           usingRowAnimation: UITableViewRowAnimationTop
-                             forSectionWithHeaderFooterView:headerView];
+                             forSectionWithHeaderView:headerView];
         }else if(sectionMode.isExpaned && self.isSingleExpanedOnly){
             sectionMode.isExpaned = !sectionMode.isExpaned;
             UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *untappedHeaderFooterView = [self __headerViewInTableView:self.tableView forSection:i];
@@ -286,7 +290,7 @@
                                                   withModel:sectionMode
                                                 inTableView:self.tableView
                                           usingRowAnimation:(tappedSection > i) ? UITableViewRowAnimationTop : UITableViewRowAnimationBottom
-                             forSectionWithHeaderFooterView:untappedHeaderFooterView];
+                             forSectionWithHeaderView:untappedHeaderFooterView];
             
         }
         
