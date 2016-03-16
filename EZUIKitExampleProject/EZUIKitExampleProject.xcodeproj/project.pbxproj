@@ -16,6 +16,7 @@
 		9930A5AE1C4DE88A006F1E14 /* EZUIKitExampleProjectUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A5AD1C4DE88A006F1E14 /* EZUIKitExampleProjectUITests.m */; };
 		9930A5CA1C4DEA3D006F1E14 /* EZUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9930A5C31C4DE975006F1E14 /* EZUIKit.framework */; };
 		9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */; };
+		99EAA4181C9912B900F4D4C1 /* EZNestedTableViewExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		9930A5BC1C4DE975006F1E14 /* EZUIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = EZUIKit.xcodeproj; path = ../EZUIKit.xcodeproj; sourceTree = "<group>"; };
 		9930A6171C4E8950006F1E14 /* EZWebViewControllerExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZWebViewControllerExample.h; sourceTree = "<group>"; };
 		9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZWebViewControllerExample.m; sourceTree = "<group>"; };
+		99EAA4161C9912B900F4D4C1 /* EZNestedTableViewExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZNestedTableViewExample.h; sourceTree = "<group>"; };
+		99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZNestedTableViewExample.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,7 @@
 		9930A5871C4DE88A006F1E14 /* EZUIKitExampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				99EAA4131C99129300F4D4C1 /* EZNestedTableViewExample */,
 				9930A5CB1C4DF112006F1E14 /* EZWebViewControllerExample */,
 				9930A58B1C4DE88A006F1E14 /* AppDelegate.h */,
 				9930A58C1C4DE88A006F1E14 /* AppDelegate.m */,
@@ -180,6 +184,15 @@
 				9930A6181C4E8950006F1E14 /* EZWebViewControllerExample.m */,
 			);
 			path = EZWebViewControllerExample;
+			sourceTree = "<group>";
+		};
+		99EAA4131C99129300F4D4C1 /* EZNestedTableViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				99EAA4161C9912B900F4D4C1 /* EZNestedTableViewExample.h */,
+				99EAA4171C9912B900F4D4C1 /* EZNestedTableViewExample.m */,
+			);
+			path = EZNestedTableViewExample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -338,6 +351,7 @@
 			files = (
 				9930A58D1C4DE88A006F1E14 /* AppDelegate.m in Sources */,
 				9930A6191C4E8950006F1E14 /* EZWebViewControllerExample.m in Sources */,
+				99EAA4181C9912B900F4D4C1 /* EZNestedTableViewExample.m in Sources */,
 				9930A58A1C4DE88A006F1E14 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -488,6 +502,7 @@
 				INFOPLIST_FILE = EZUIKitExampleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.neulion.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -502,6 +517,7 @@
 				INFOPLIST_FILE = EZUIKitExampleProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.neulion.test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
