@@ -11,4 +11,5 @@
 
 @interface EZNestedTableViewExample : UIViewController
 
+- (IBAction)clearAllButtonTap:(UIButton *)sender;
 @end

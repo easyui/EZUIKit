@@ -53,10 +53,18 @@
 
 #pragma mark - public
 - (BOOL)setChecked:(BOOL)isChecked{
-
+    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+        [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+            cellModel.ischecked = isChecked;
+        } ];
+    } ];
     return YES;
 }
 - (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section{
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
+    [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+        cellModel.ischecked = isChecked;
+    } ];
     
     return YES;
 }
@@ -64,7 +72,6 @@
     NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
     cellMode.ischecked = isChecked;
     return YES;
-
 }
 
 - (void)reloadRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation{
@@ -187,7 +194,7 @@
                                        withModel:(NSObject<EZNestedTableViewSectionModelProtocol>*)model
                                      inTableView:(UITableView *)tableView
                                usingRowAnimation:(UITableViewRowAnimation)animation
-                  forSectionWithHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView {
+                        forSectionWithHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView {
     
     NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
                                                        forSectionMode:model];
@@ -279,8 +286,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-   UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
+    
+    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
     if (!cell) {
         return  nil;
     }
@@ -310,7 +317,7 @@
         [cell tableView:tableView didSelectRowAtIndexPath:indexPath cellMode:cellMode];
         return;
     }
-
+    
     cellMode.ischecked = !cellMode.ischecked;
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
@@ -339,7 +346,7 @@
                                                   withModel:sectionMode
                                                 inTableView:self.tableView
                                           usingRowAnimation: UITableViewRowAnimationTop
-                             forSectionWithHeaderView:headerView];
+                                   forSectionWithHeaderView:headerView];
         }else if(sectionMode.isExpaned && self.isSingleExpanedOnly){
             sectionMode.isExpaned = !sectionMode.isExpaned;
             UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *untappedHeaderFooterView = [self __headerViewInTableView:self.tableView forSection:i];
@@ -348,7 +355,7 @@
                                                   withModel:sectionMode
                                                 inTableView:self.tableView
                                           usingRowAnimation:(tappedSection > i) ? UITableViewRowAnimationTop : UITableViewRowAnimationBottom
-                             forSectionWithHeaderView:untappedHeaderFooterView];
+                                   forSectionWithHeaderView:untappedHeaderFooterView];
             
         }
         

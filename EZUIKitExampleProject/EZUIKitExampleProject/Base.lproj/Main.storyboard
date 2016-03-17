@@ -152,6 +152,9 @@
                                     <constraint firstAttribute="height" constant="40" id="83j-Te-bho"/>
                                 </constraints>
                                 <state key="normal" title="clear all"/>
+                                <connections>
+                                    <action selector="clearAllButtonTap:" destination="GeH-Mc-Vyz" eventType="touchUpInside" id="7pd-d8-3JA"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="79B-rZ-7Ec" customClass="EZNestedTableView">
                                 <rect key="frame" x="0.0" y="104" width="600" height="496"/>

@@ -66,4 +66,8 @@
 }
 */
 
+- (IBAction)clearAllButtonTap:(UIButton *)sender {
+    [self.nestedTableView setChecked:NO];
+    [self.nestedTableView reloadData];
+}
 @end
