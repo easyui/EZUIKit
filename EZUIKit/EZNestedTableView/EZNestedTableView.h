@@ -91,6 +91,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation;
 - (void)reloadData;
 
+- (nullable NSIndexPath *)indexPathForCell:(UITableViewCell *)cell;
+- (BOOL)hasCheckedInSection:(NSUInteger)index;
+
+
 //private
 @property(nullable,nonatomic,strong) UITableView *tableView;
 

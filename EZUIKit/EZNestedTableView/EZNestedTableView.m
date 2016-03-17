@@ -51,6 +51,14 @@
     
 }
 
+#pragma mark - Life Cycle
+- (void)dealloc{
+    self.tableView.dataSource = nil;
+    self.tableView.delegate = nil;
+    [self.tableView removeFromSuperview];
+    self.tableView = nil;
+}
+
 #pragma mark - public
 
 - (BOOL)setExpaned:(BOOL)isExpaned{
@@ -66,7 +74,6 @@
     return YES;
 }
 
-
 - (BOOL)setChecked:(BOOL)isChecked{
     [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
         [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
@@ -75,6 +82,7 @@
     } ];
     return YES;
 }
+
 - (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section{
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
     [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
@@ -83,6 +91,7 @@
     
     return YES;
 }
+
 - (BOOL)setChecked:(BOOL)isChecked atIndexPath:(NSIndexPath *)indexPath{
     NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
     cellMode.ischecked = isChecked;
@@ -100,146 +109,19 @@
 - (void)reloadData{
     [self.tableView reloadData];
 }
-#pragma mark - Life Cycle
-- (void)dealloc{
-    self.tableView.dataSource = nil;
-    self.tableView.delegate = nil;
-    [self.tableView removeFromSuperview];
-    self.tableView = nil;
+
+
+- (NSIndexPath *)indexPathForCell:(UITableViewCell *)cell{
+    return [self.tableView indexPathForCell:cell];
 }
 
-#pragma mark - private
-- (void)__commonInit{
-    self.translatesAutoresizingMaskIntoConstraints = NO;
-    self.isSingleExpanedOnly = YES;
-    if(!self.tableView){
-        self.sectionHeaderHeight = 44.0f;
-        self.tableView = [[UITableView alloc] init];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        self.tableView.tableFooterView = [[UIView alloc] init];
-        [self addSubview:self.tableView];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[tableView]-0-|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-0-|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
-    }
-    
+- (BOOL)hasCheckedInSection:(NSUInteger)index{
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionMode = [self __sectionModelAtIndex:index];
+    NSString *match = [NSString stringWithFormat:@"SELF.ischecked == %@",@YES];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:match];
+    return  [sectionMode.cellItems filteredArrayUsingPredicate:predicate].count > 0;
+
 }
-
-- (NSObject<EZNestedTableViewSectionModelProtocol> *)__sectionModelAtIndex:(NSUInteger)index{
-    if( index < self.sectionModels.count){
-        NSObject * model = [self.sectionModels objectAtIndex:index];
-        if([model conformsToProtocol:@protocol(EZNestedTableViewSectionModelProtocol)]){
-            return ((NSObject<EZNestedTableViewSectionModelProtocol> * )model);
-        }
-    }
-    return nil;
-}
-
-- (NSObject<EZNestedTableViewCellModelProtocol> *)__cellModelAtIndex:(NSIndexPath *)indexPath{
-    
-    if( indexPath.section < self.sectionModels.count){
-        NSObject * model = [self.sectionModels objectAtIndex:indexPath.section];
-        if([model conformsToProtocol:@protocol(EZNestedTableViewSectionModelProtocol)]){
-            NSObject<EZNestedTableViewSectionModelProtocol> *  sectionMode = (NSObject<EZNestedTableViewSectionModelProtocol> * )model;
-            if (indexPath.row < sectionMode.cellItems.count) {
-                NSObject * cellMode = [sectionMode.cellItems objectAtIndex:indexPath.row];
-                if([cellMode conformsToProtocol:@protocol(EZNestedTableViewCellModelProtocol)]){
-                    return ((NSObject<EZNestedTableViewCellModelProtocol> * )cellMode);
-                }
-            }
-        }
-    }
-    return nil;
-}
-
-
-- (NSString *)__sectionHeaderReuseIdentifier {
-    return [self.sectionHeaderNibName stringByAppendingString:@"ReuseIdentifier"];
-}
-
-- (NSString *)___tableViewCellReuseIdentifier{
-    return [self.tableViewCellNibName stringByAppendingString:@"ReuseIdentifier"];
-}
-
-- (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)__headerViewInTableView:(UITableView *)tableView dequeueReusableHeaderFooterViewWithIdentifier:(NSString *)identifier{
-    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
-    if ([view conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
-        return (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)view;
-    }
-    return nil;
-}
-
-- (UITableViewCell<EZNestedTableViewCellProtocol> *) __tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
-    if ([cell conformsToProtocol:@protocol(EZNestedTableViewCellProtocol)]) {
-        
-        return (UITableViewCell<EZNestedTableViewCellProtocol> *)cell;
-    }
-    return nil;
-}
-
-
-
--(NSNumber *)__tappedSectionInTableView:(UITableView *)tableView atTouchLocation:(CGPoint)location inHeaderFooterView:(UITableViewHeaderFooterView *)headerView {
-    CGPoint point = [tableView convertPoint:location
-                                   fromView:headerView];
-    
-    for (NSInteger i = 0; i < [tableView numberOfSections]; i++) {
-        CGRect rect = [tableView rectForHeaderInSection:i];
-        if (CGRectContainsPoint(rect, point)) {
-            return @(i);
-        }
-    }
-    return nil;
-}
-
-
-- (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)__headerViewInTableView:(UITableView *)tableView forSection:(NSUInteger)section {
-    UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *returnValue;
-    UITableViewHeaderFooterView *headerFooterView = [tableView headerViewForSection:section];
-    if ([headerFooterView conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
-        returnValue = (UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView;
-    }
-    return returnValue;
-}
-
-
--(void)__toggleCollapseTableViewSectionAtSection:(NSUInteger)section
-                                       withModel:(NSObject<EZNestedTableViewSectionModelProtocol>*)model
-                                     inTableView:(UITableView *)tableView
-                               usingRowAnimation:(UITableViewRowAnimation)animation
-                        forSectionWithHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView {
-    
-    NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
-                                                       forSectionMode:model];
-    if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
-        [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:model.isExpaned animated:YES];
-    }
-    if (model.isExpaned) {
-        [tableView insertRowsAtIndexPaths:indexPaths
-                         withRowAnimation:animation];
-    } else {
-        [tableView deleteRowsAtIndexPaths:indexPaths
-                         withRowAnimation:animation];
-    }
-    
-    
-}
-
--(NSArray<NSIndexPath *> *)__indexPathsForSection:(NSInteger)section forSectionMode:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionMode {
-    
-    NSMutableArray *indexPaths = [NSMutableArray new];
-    NSInteger count = sectionMode.cellItems.count;
-    NSIndexPath *indexPath;
-    for (NSInteger i = 0; i < count; i++) {
-        indexPath = [NSIndexPath indexPathForRow:i inSection:section];
-        [indexPaths addObject:indexPath];
-    }
-    return [indexPaths copy];
-}
-
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -247,11 +129,9 @@
     return self.sectionModels.count;
 }
 
-
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return self.sectionHeaderHeight;
 }
-
 
 -(void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section {
     
@@ -263,7 +143,6 @@
         }
     }
 }
-
 
 /*
  - ( NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
@@ -284,24 +163,19 @@
     return headerView;
 }
 
-
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:sectionIndex];
     return sectionModel.isExpaned?sectionModel.cellItems.count:0;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
     if (!cell) {
         return  nil;
@@ -312,10 +186,7 @@
         [cell tableView:tableView cellForRowAtIndexPath:indexPath cellMode:cellMode];
     }
     return cell;
-    
 }
-
-
 
 #pragma mark - UITableViewDelegate
 
@@ -380,7 +251,6 @@
     
 }
 
-
 #pragma mark - set get
 - (void)setSectionHeaderNibName:(NSString *)sectionHeaderNibName{
     _sectionHeaderNibName = sectionHeaderNibName;
@@ -394,5 +264,128 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:[self ___tableViewCellReuseIdentifier]];
 }
 
+#pragma mark - private
+- (void)__commonInit{
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.isSingleExpanedOnly = YES;
+    if(!self.tableView){
+        self.sectionHeaderHeight = 44.0f;
+        self.tableView = [[UITableView alloc] init];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+        self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+        self.tableView.tableFooterView = [[UIView alloc] init];
+        [self addSubview:self.tableView];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|-0-[tableView]-0-|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tableView]-0-|" options:0 metrics:nil views:@{@"tableView": self.tableView}]];
+    }
+    
+}
+
+- (NSObject<EZNestedTableViewSectionModelProtocol> *)__sectionModelAtIndex:(NSUInteger)index{
+    if( index < self.sectionModels.count){
+        NSObject * model = [self.sectionModels objectAtIndex:index];
+        if([model conformsToProtocol:@protocol(EZNestedTableViewSectionModelProtocol)]){
+            return ((NSObject<EZNestedTableViewSectionModelProtocol> * )model);
+        }
+    }
+    return nil;
+}
+
+- (NSObject<EZNestedTableViewCellModelProtocol> *)__cellModelAtIndex:(NSIndexPath *)indexPath{
+    
+    if( indexPath.section < self.sectionModels.count){
+        NSObject * model = [self.sectionModels objectAtIndex:indexPath.section];
+        if([model conformsToProtocol:@protocol(EZNestedTableViewSectionModelProtocol)]){
+            NSObject<EZNestedTableViewSectionModelProtocol> *  sectionMode = (NSObject<EZNestedTableViewSectionModelProtocol> * )model;
+            if (indexPath.row < sectionMode.cellItems.count) {
+                NSObject * cellMode = [sectionMode.cellItems objectAtIndex:indexPath.row];
+                if([cellMode conformsToProtocol:@protocol(EZNestedTableViewCellModelProtocol)]){
+                    return ((NSObject<EZNestedTableViewCellModelProtocol> * )cellMode);
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+- (NSString *)__sectionHeaderReuseIdentifier {
+    return [self.sectionHeaderNibName stringByAppendingString:@"ReuseIdentifier"];
+}
+
+- (NSString *)___tableViewCellReuseIdentifier{
+    return [self.tableViewCellNibName stringByAppendingString:@"ReuseIdentifier"];
+}
+
+- (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)__headerViewInTableView:(UITableView *)tableView dequeueReusableHeaderFooterViewWithIdentifier:(NSString *)identifier{
+    UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
+    if ([view conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
+        return (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)view;
+    }
+    return nil;
+}
+
+- (UITableViewCell<EZNestedTableViewCellProtocol> *) __tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if ([cell conformsToProtocol:@protocol(EZNestedTableViewCellProtocol)]) {
+        
+        return (UITableViewCell<EZNestedTableViewCellProtocol> *)cell;
+    }
+    return nil;
+}
+
+-(NSNumber *)__tappedSectionInTableView:(UITableView *)tableView atTouchLocation:(CGPoint)location inHeaderFooterView:(UITableViewHeaderFooterView *)headerView {
+    CGPoint point = [tableView convertPoint:location
+                                   fromView:headerView];
+    
+    for (NSInteger i = 0; i < [tableView numberOfSections]; i++) {
+        CGRect rect = [tableView rectForHeaderInSection:i];
+        if (CGRectContainsPoint(rect, point)) {
+            return @(i);
+        }
+    }
+    return nil;
+}
+
+- (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)__headerViewInTableView:(UITableView *)tableView forSection:(NSUInteger)section {
+    UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *returnValue;
+    UITableViewHeaderFooterView *headerFooterView = [tableView headerViewForSection:section];
+    if ([headerFooterView conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
+        returnValue = (UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerFooterView;
+    }
+    return returnValue;
+}
+
+-(void)__toggleCollapseTableViewSectionAtSection:(NSUInteger)section
+                                       withModel:(NSObject<EZNestedTableViewSectionModelProtocol>*)model
+                                     inTableView:(UITableView *)tableView
+                               usingRowAnimation:(UITableViewRowAnimation)animation
+                        forSectionWithHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView {
+    
+    NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
+                                                       forSectionMode:model];
+    if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
+        [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:model.isExpaned animated:YES];
+    }
+    if (model.isExpaned) {
+        [tableView insertRowsAtIndexPaths:indexPaths
+                         withRowAnimation:animation];
+    } else {
+        [tableView deleteRowsAtIndexPaths:indexPaths
+                         withRowAnimation:animation];
+    }
+}
+
+-(NSArray<NSIndexPath *> *)__indexPathsForSection:(NSInteger)section forSectionMode:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionMode {
+    
+    NSMutableArray *indexPaths = [NSMutableArray new];
+    NSInteger count = sectionMode.cellItems.count;
+    NSIndexPath *indexPath;
+    for (NSInteger i = 0; i < count; i++) {
+        indexPath = [NSIndexPath indexPathForRow:i inSection:section];
+        [indexPaths addObject:indexPath];
+    }
+    return [indexPaths copy];
+}
 
 @end
