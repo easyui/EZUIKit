@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 NS_ASSUME_NONNULL_BEGIN
+@class  EZNestedTableView;
 #pragma mark -
 #pragma mark - EZNestedTableViewCellModelProtocol
 
@@ -48,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section sectionModel:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionModel;
 @end
 
 #pragma mark -

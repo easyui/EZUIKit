@@ -62,7 +62,7 @@
 #pragma mark - public
 
 - (BOOL)setExpaned:(BOOL)isExpaned{
-    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+    [self.sectionModels enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
         sectionModel.isExpaned = isExpaned;
     } ];
     return YES;
@@ -75,8 +75,8 @@
 }
 
 - (BOOL)setChecked:(BOOL)isChecked{
-    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
-        [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+    [self.sectionModels enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+        [sectionModel.cellItems enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
             cellModel.ischecked = isChecked;
         } ];
     } ];
@@ -85,7 +85,7 @@
 
 - (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section{
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
-    [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+    [sectionModel.cellItems enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
         cellModel.ischecked = isChecked;
     } ];
     
@@ -124,8 +124,8 @@
 
 - (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModels{
     NSMutableArray<EZNestedTableViewCellModelProtocol> * checkedCells = [[NSMutableArray<EZNestedTableViewCellModelProtocol> alloc] init];
-    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
-        [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+    [self.sectionModels enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+        [sectionModel.cellItems enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
             if(cellModel.ischecked){
                 [checkedCells addObject:cellModel];
             }
@@ -137,7 +137,7 @@
 - (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModelsInSection:(NSUInteger)index{
     NSMutableArray<EZNestedTableViewCellModelProtocol> * checkedCells = [[NSMutableArray<EZNestedTableViewCellModelProtocol> alloc] init];
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:index];
-    [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+    [sectionModel.cellItems enumerateObjectsUsingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
         if(cellModel.ischecked){
             [checkedCells addObject:cellModel];
         }
@@ -179,8 +179,8 @@
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
     headerView.titleLabel.text = sectionModel.title;
     
-    if([headerView respondsToSelector:@selector(tableView:viewForHeaderInSection:)]){
-        [headerView tableView:tableView viewForHeaderInSection:section];
+    if([headerView respondsToSelector:@selector(nestedTableView:tableView:viewForHeaderInSection:sectionModel:)]){
+        [headerView nestedTableView:self tableView:tableView viewForHeaderInSection:section sectionModel:sectionModel];
     }
     return headerView;
 }
@@ -198,7 +198,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
+    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self __tableViewCellReuseIdentifier] forIndexPath:indexPath];
     if (!cell) {
         return  nil;
     }
@@ -215,7 +215,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
+    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self __tableViewCellReuseIdentifier] forIndexPath:indexPath];
     if (!cell) {
         return ;
     }
@@ -283,7 +283,7 @@
 - (void)setTableViewCellNibName:(NSString *)tableViewCellNibName{
     _tableViewCellNibName = tableViewCellNibName;
     UINib *nib = [UINib nibWithNibName:_tableViewCellNibName bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:[self ___tableViewCellReuseIdentifier]];
+    [self.tableView registerNib:nib forCellReuseIdentifier:[self __tableViewCellReuseIdentifier]];
 }
 
 #pragma mark - private
@@ -335,7 +335,7 @@
     return [self.sectionHeaderNibName stringByAppendingString:@"ReuseIdentifier"];
 }
 
-- (NSString *)___tableViewCellReuseIdentifier{
+- (NSString *)__tableViewCellReuseIdentifier{
     return [self.tableViewCellNibName stringByAppendingString:@"ReuseIdentifier"];
 }
 

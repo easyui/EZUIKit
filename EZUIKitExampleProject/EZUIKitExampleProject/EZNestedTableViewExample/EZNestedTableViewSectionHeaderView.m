@@ -33,6 +33,8 @@
 #pragma mark - EZNestedTableViewSectionHeaderProtocol
 - (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated{
     
+    
+    
     CGAffineTransform  transform = CGAffineTransformIdentity;
     if (expanded) {
         transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS(180.0f));
@@ -53,6 +55,24 @@
         self.arrowImageView.transform = transform;
         self.isRotating = NO;
     }
+    
+}
+
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section  sectionModel:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionModel{
+    NSArray<EZNestedTableViewCellModelProtocol> * checkedcells = [nestedTableView checkedCellModelsInSection:section];
+    NSMutableString *title = [[NSMutableString alloc] init];
+    [title appendString:sectionModel.title];
+    [title appendString:@" "];
+    NSUInteger count = checkedcells.count;
+    for (int i = 0; i < count ; i++) {
+        NSObject<EZNestedTableViewCellModelProtocol>* cell = checkedcells[i];
+        [title appendString:cell.title];
+        if (i < count - 1) {
+            [title appendString:@", "];
+        }
+    }
+    
+    self.titleLabel.text = title;
     
 }
 @end
