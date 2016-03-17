@@ -57,8 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol EZNestedTableViewCellProtocol <NSObject>
 @required
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-
 @optional
+@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
+- (void)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
+
 
 @end
 #pragma mark -
@@ -75,6 +78,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSArray<EZNestedTableViewSectionModelProtocol> *sectionModels;
 
 
+
+- (BOOL)setChecked:(BOOL)isChecked;
+- (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section;
+- (BOOL)setChecked:(BOOL)isChecked atIndexPath:(NSIndexPath *)indexPath;
+
+
+- (void)reloadRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation;
+- (void)reloadData;
 
 //private
 @property(nullable,nonatomic,strong) UITableView *tableView;

@@ -51,6 +51,33 @@
     
 }
 
+#pragma mark - public
+- (BOOL)setChecked:(BOOL)isChecked{
+
+    return YES;
+}
+- (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section{
+    
+    return YES;
+}
+- (BOOL)setChecked:(BOOL)isChecked atIndexPath:(NSIndexPath *)indexPath{
+    NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
+    cellMode.ischecked = isChecked;
+    return YES;
+
+}
+
+- (void)reloadRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation{
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:animation];
+}
+
+- (void)reloadSections:(NSIndexSet *)sections withRowAnimation:(UITableViewRowAnimation)animation{
+    [self.tableView reloadSections:sections withRowAnimation:animation];
+}
+
+- (void)reloadData{
+    [self.tableView reloadData];
+}
 #pragma mark - Life Cycle
 - (void)dealloc{
     self.tableView.dataSource = nil;
@@ -109,6 +136,10 @@
     return [self.sectionHeaderNibName stringByAppendingString:@"ReuseIdentifier"];
 }
 
+- (NSString *)___tableViewCellReuseIdentifier{
+    return [self.tableViewCellNibName stringByAppendingString:@"ReuseIdentifier"];
+}
+
 - (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol> *)__headerViewInTableView:(UITableView *)tableView dequeueReusableHeaderFooterViewWithIdentifier:(NSString *)identifier{
     UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:identifier];
     if ([view conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
@@ -116,6 +147,16 @@
     }
     return nil;
 }
+
+- (UITableViewCell<EZNestedTableViewCellProtocol> *) __tableView:(UITableView *)tableView dequeueReusableCellWithIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    if ([cell conformsToProtocol:@protocol(EZNestedTableViewCellProtocol)]) {
+        
+        return (UITableViewCell<EZNestedTableViewCellProtocol> *)cell;
+    }
+    return nil;
+}
+
 
 
 -(NSNumber *)__tappedSectionInTableView:(UITableView *)tableView atTouchLocation:(CGPoint)location inHeaderFooterView:(UITableViewHeaderFooterView *)headerView {
@@ -213,7 +254,7 @@
     UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol>* headerView = [self __headerViewInTableView:tableView dequeueReusableHeaderFooterViewWithIdentifier:[self __sectionHeaderReuseIdentifier]];
     headerView.interactionDelegate = self;
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
-    headerView.titleLabel.text = sectionModel.name;
+    headerView.titleLabel.text = sectionModel.title;
     
     if([headerView respondsToSelector:@selector(tableView:viewForHeaderInSection:)]){
         [headerView tableView:tableView viewForHeaderInSection:section];
@@ -238,23 +279,40 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    // Reuse and create cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+
+   UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
+    if (!cell) {
+        return  nil;
     }
     NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
-    cell.textLabel.text = cellMode.title;
-    
+    cell.titleLabel.text = cellMode.title;
+    if([cell respondsToSelector:@selector(tableView:cellForRowAtIndexPath:cellMode:)]){
+        [cell tableView:tableView cellForRowAtIndexPath:indexPath cellMode:cellMode];
+    }
     return cell;
+    
 }
+
+
 
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@",NSStringFromSelector(_cmd));
+    
+    UITableViewCell<EZNestedTableViewCellProtocol> * cell = [self __tableView:tableView dequeueReusableCellWithIdentifier:[self ___tableViewCellReuseIdentifier] forIndexPath:indexPath];
+    if (!cell) {
+        return ;
+    }
+    NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
+    cell.titleLabel.text = cellMode.title;
+    if([cell respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:cellMode:)]){
+        [cell tableView:tableView didSelectRowAtIndexPath:indexPath cellMode:cellMode];
+        return;
+    }
+
+    cellMode.ischecked = !cellMode.ischecked;
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - EZNestedTableViewSectionHeaderProtocol
@@ -302,10 +360,16 @@
 
 
 #pragma mark - set get
--(void)setSectionHeaderNibName:(NSString *)sectionHeaderNibName{
+- (void)setSectionHeaderNibName:(NSString *)sectionHeaderNibName{
     _sectionHeaderNibName = sectionHeaderNibName;
     UINib *nib = [UINib nibWithNibName:_sectionHeaderNibName bundle:nil];
     [self.tableView registerNib:nib forHeaderFooterViewReuseIdentifier:[self __sectionHeaderReuseIdentifier]];
+}
+
+- (void)setTableViewCellNibName:(NSString *)tableViewCellNibName{
+    _tableViewCellNibName = tableViewCellNibName;
+    UINib *nib = [UINib nibWithNibName:_tableViewCellNibName bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:[self ___tableViewCellReuseIdentifier]];
 }
 
 
