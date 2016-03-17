@@ -72,7 +72,19 @@
         }
     }
     
-    self.titleLabel.text = title;
+    
+    NSMutableAttributedString *AttributedStr = [[NSMutableAttributedString alloc]initWithString:title];
+    
+
+    
+    [AttributedStr addAttribute:NSForegroundColorAttributeName
+     
+                          value:[UIColor redColor]
+     
+                          range:NSMakeRange(sectionModel.title.length, title.length - sectionModel.title.length)];
+    
+    
+    self.titleLabel.attributedText = AttributedStr;
     
 }
 @end
