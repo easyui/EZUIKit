@@ -22,13 +22,16 @@
     for (NSInteger i = 0; i < 10; i++) {
         
         SectionModel *section = [[SectionModel alloc] init];
-        section.name = [NSString stringWithFormat:@"section %ld",(long)i];
+        section.title = [NSString stringWithFormat:@"section %ld",(long)i];
         
         NSMutableArray *cells = [[NSMutableArray alloc] init];
         for (NSInteger j = 0; j < 5; j++) {
             
             CellModel *cell = [[CellModel alloc] init];
             cell.title = [NSString stringWithFormat:@"cell %ld %ld",(long)i, (long)j];
+            if (j == 0) {
+                cell.isSubTitle = YES;
+            }
             [cells addObject:cell];
         }
 
@@ -44,6 +47,7 @@
     self.nestedTableView.sectionHeaderHeight = 50;
     self.nestedTableView.sectionModels = [EZNestedTableViewExample buildSectionModel];
     self.nestedTableView.sectionHeaderNibName = @"EZNestedTableViewSectionHeaderView";
+    self.nestedTableView.tableViewCellNibName = @"EZNestedTableViewCell";
     [self.nestedTableView.tableView reloadData];
 }
 

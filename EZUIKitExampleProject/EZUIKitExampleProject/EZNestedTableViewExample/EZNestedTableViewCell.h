@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <EZUIKit/EZNestedTableView.h>
 
-@interface EZNestedTableViewCell : UITableViewCell
+@interface EZNestedTableViewCell : UITableViewCell<EZNestedTableViewCellProtocol>
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
+@property (weak, nonatomic) IBOutlet UIButton *clearButton;
 
 @end

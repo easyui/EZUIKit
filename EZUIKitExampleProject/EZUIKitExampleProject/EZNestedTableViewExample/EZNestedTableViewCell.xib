@@ -13,7 +13,50 @@
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLE-qa-btm">
+                        <rect key="frame" x="8" y="0.0" width="237" height="43"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nas-H0-cqd">
+                        <rect key="frame" x="245" y="0.0" width="75" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="75" id="FeA-1Y-M1P"/>
+                        </constraints>
+                        <state key="normal" title="Clear">
+                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                        </state>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_choose_14x11" translatesAutoresizingMaskIntoConstraints="NO" id="mhl-Nm-TcZ">
+                        <rect key="frame" x="270" y="0.0" width="50" height="43"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="Fhs-Gg-pMb"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="mhl-Nm-TcZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KUB-8x-kLI"/>
+                    <constraint firstAttribute="bottom" secondItem="cLE-qa-btm" secondAttribute="bottom" id="PX2-IG-eCZ"/>
+                    <constraint firstAttribute="trailing" secondItem="mhl-Nm-TcZ" secondAttribute="trailing" id="emO-mj-4Jv"/>
+                    <constraint firstItem="nas-H0-cqd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="ez6-QV-W3N"/>
+                    <constraint firstAttribute="bottom" secondItem="nas-H0-cqd" secondAttribute="bottom" id="fH4-wg-MgY"/>
+                    <constraint firstAttribute="trailing" secondItem="nas-H0-cqd" secondAttribute="trailing" id="kzP-6J-eks"/>
+                    <constraint firstAttribute="bottom" secondItem="mhl-Nm-TcZ" secondAttribute="bottom" id="lJ6-ad-6OW"/>
+                    <constraint firstItem="cLE-qa-btm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="lK3-Cb-2Of"/>
+                    <constraint firstItem="cLE-qa-btm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="nhJ-8l-50E"/>
+                    <constraint firstItem="nas-H0-cqd" firstAttribute="leading" secondItem="cLE-qa-btm" secondAttribute="trailing" id="x3n-0c-wcP"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="checkBoxImageView" destination="mhl-Nm-TcZ" id="Rz5-fj-RKu"/>
+                <outlet property="clearButton" destination="nas-H0-cqd" id="Vsi-in-4zY"/>
+                <outlet property="titleLabel" destination="cLE-qa-btm" id="1Kc-iJ-cym"/>
+            </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icon_choose_14x11" width="14" height="11"/>
+    </resources>
 </document>
