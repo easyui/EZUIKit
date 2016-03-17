@@ -79,6 +79,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 
+- (BOOL)setExpaned:(BOOL)isExpaned;
+- (BOOL)setExpaned:(BOOL)isExpaned inSection:(NSInteger)section;
+
 - (BOOL)setChecked:(BOOL)isChecked;
 - (BOOL)setChecked:(BOOL)isChecked inSection:(NSInteger)section;
 - (BOOL)setChecked:(BOOL)isChecked atIndexPath:(NSIndexPath *)indexPath;

@@ -52,6 +52,21 @@
 }
 
 #pragma mark - public
+
+- (BOOL)setExpaned:(BOOL)isExpaned{
+    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+        sectionModel.isExpaned = isExpaned;
+    } ];
+    return YES;
+}
+
+- (BOOL)setExpaned:(BOOL)isExpaned inSection:(NSInteger)section{
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:section];
+    sectionModel.isExpaned = isExpaned;
+    return YES;
+}
+
+
 - (BOOL)setChecked:(BOOL)isChecked{
     [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
         [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
