@@ -120,7 +120,29 @@
     NSString *match = [NSString stringWithFormat:@"SELF.ischecked == %@",@YES];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:match];
     return  [sectionMode.cellItems filteredArrayUsingPredicate:predicate].count > 0;
+}
 
+- (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModels{
+    NSMutableArray<EZNestedTableViewCellModelProtocol> * checkedCells = [[NSMutableArray<EZNestedTableViewCellModelProtocol> alloc] init];
+    [self.sectionModels enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewSectionModelProtocol>* sectionModel, NSUInteger idx, BOOL *  stop) {
+        [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+            if(cellModel.ischecked){
+                [checkedCells addObject:cellModel];
+            }
+        } ];
+    } ];
+    return [checkedCells copy];
+}
+
+- (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModelsInSection:(NSUInteger)index{
+    NSMutableArray<EZNestedTableViewCellModelProtocol> * checkedCells = [[NSMutableArray<EZNestedTableViewCellModelProtocol> alloc] init];
+    NSObject<EZNestedTableViewSectionModelProtocol> * sectionModel = [self __sectionModelAtIndex:index];
+    [sectionModel.cellItems enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(NSObject<EZNestedTableViewCellModelProtocol>* cellModel, NSUInteger idx, BOOL *  stop) {
+        if(cellModel.ischecked){
+            [checkedCells addObject:cellModel];
+        }
+    } ];
+    return [checkedCells copy];
 }
 
 #pragma mark - UITableViewDataSource

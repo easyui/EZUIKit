@@ -94,7 +94,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSIndexPath *)indexPathForCell:(UITableViewCell *)cell;
 - (BOOL)hasCheckedInSection:(NSUInteger)index;
 
-
+- (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModels;
+- (NSArray<EZNestedTableViewCellModelProtocol> *)checkedCellModelsInSection:(NSUInteger)index;
 //private
 @property(nullable,nonatomic,strong) UITableView *tableView;
 
