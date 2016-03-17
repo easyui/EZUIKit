@@ -28,6 +28,9 @@
                         <state key="normal" title="Clear">
                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                         </state>
+                        <connections>
+                            <action selector="clearSectionButtonTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hhF-7p-ajS"/>
+                        </connections>
                     </button>
                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_choose_14x11" translatesAutoresizingMaskIntoConstraints="NO" id="mhl-Nm-TcZ">
                         <rect key="frame" x="270" y="0.0" width="50" height="43"/>

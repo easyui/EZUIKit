@@ -45,6 +45,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.nestedTableView.sectionHeaderHeight = 50;
+    self.nestedTableView.isSingleExpanedOnly = YES;
     self.nestedTableView.sectionModels = [EZNestedTableViewExample buildSectionModel];
     self.nestedTableView.sectionHeaderNibName = @"EZNestedTableViewSectionHeaderView";
     self.nestedTableView.tableViewCellNibName = @"EZNestedTableViewCell";
