@@ -12,6 +12,5 @@
 @interface SectionModel : NSObject<EZNestedTableViewSectionModelProtocol>
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL isExpaned;
-@property (nonatomic, copy) NSMutableArray<EZNestedTableViewCellModelProtocol> *selectedItems;
 @property (nonatomic, copy) NSArray<EZNestedTableViewCellModelProtocol> *cellItems;
 @end
