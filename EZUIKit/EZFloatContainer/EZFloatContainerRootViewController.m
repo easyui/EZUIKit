@@ -14,6 +14,17 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
 }
+
+
+/*fixed ios8 rootViewController.view.bounds is wrong.
+ -[UIWindow viewForFirstBaselineLayout]: unrecognized selector sent to instance 0x61600008d080
+ */
+-(void)viewDidLayoutSubviews{
+    if([[UIDevice currentDevice].systemVersion doubleValue] < 9.0){
+        self.view.frame = self.view.window.bounds;
+    }
+}
+
 -(BOOL)shouldAutorotate
 {
     return self.floatContainer.shouldAutorotate;
