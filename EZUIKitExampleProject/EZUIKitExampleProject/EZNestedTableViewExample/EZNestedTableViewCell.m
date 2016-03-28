@@ -20,11 +20,15 @@
 - (void)awakeFromNib {
     // Initialization code
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    [self.clearButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.clearButton setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
+    [self.clearButton setTitle:@"Clear" forState:UIControlStateNormal];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
@@ -38,16 +42,13 @@
     [self.nestedTableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
 }
 
-- (void)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cellMode{
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cellMode{
     if (cellMode.isSubTitle) {
         self.titleLabel.text = @"";
         self.checkBoxImageView.hidden = YES;
         self.clearButton.hidden = NO;
-       BOOL hasCheck = [self.nestedTableView hasCheckedInSection:indexPath.section];
+        BOOL hasCheck = [self.nestedTableView hasCheckedInSection:indexPath.section];
         self.clearButton.enabled = hasCheck;
-        [self.clearButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-        [self.clearButton setTitleColor:[UIColor blackColor] forState:UIControlStateDisabled];
-        [self.clearButton setTitle:@"Clear" forState:UIControlStateNormal];
         return;
     }
     self.titleLabel.text = cellMode.title;
@@ -56,13 +57,13 @@
     self.titleLabel.textColor = cellMode.ischecked?[UIColor redColor]:[UIColor blackColor];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cellMode{
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cellMode{
     if (cellMode.isSubTitle) {
         return;
     }
     cellMode.ischecked = !cellMode.ischecked;
     [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
-
+    
 }
 
 - (EZNestedTableView *)nestedTableView{

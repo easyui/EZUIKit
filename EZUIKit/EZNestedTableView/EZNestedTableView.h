@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) id <EZNestedTableViewSectionHeaderInteractionProtocol> interactionDelegate;
 
 @optional
-- (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
 - (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section sectionModel:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionModel;
 @end
 
@@ -60,8 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @optional
 @property (weak, nonatomic) IBOutlet UIImageView *checkBoxImageView;
-- (void)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath cellMode:(NSObject<EZNestedTableViewCellModelProtocol> *)cell;
 
 
 @end

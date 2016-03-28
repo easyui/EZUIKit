@@ -160,8 +160,8 @@
     NSObject<EZNestedTableViewSectionModelProtocol> * sectionMode = [self __sectionModelAtIndex:section];
     if ([view conformsToProtocol:@protocol(EZNestedTableViewSectionHeaderProtocol)]) {
         UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol>* headerView = (UITableViewHeaderFooterView<EZNestedTableViewSectionHeaderProtocol>*)view;
-        if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
-            [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:sectionMode.isExpaned animated:NO];
+        if([headerView respondsToSelector:@selector(nestedTableView:tableView:sectionHeaderView:forSection:expanded:animated:)]){
+            [headerView nestedTableView:self tableView:tableView sectionHeaderView:headerView forSection:section expanded:sectionMode.isExpaned animated:NO];
         }
     }
 }
@@ -204,8 +204,8 @@
     }
     NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
     cell.titleLabel.text = cellMode.title;
-    if([cell respondsToSelector:@selector(tableView:cellForRowAtIndexPath:cellMode:)]){
-        [cell tableView:tableView cellForRowAtIndexPath:indexPath cellMode:cellMode];
+    if([cell respondsToSelector:@selector(nestedTableView:tableView:cellForRowAtIndexPath:cellMode:)]){
+        [cell nestedTableView:self tableView:tableView cellForRowAtIndexPath:indexPath cellMode:cellMode];
     }
     return cell;
 }
@@ -221,8 +221,8 @@
     }
     NSObject<EZNestedTableViewCellModelProtocol> * cellMode = [self __cellModelAtIndex:indexPath];
     cell.titleLabel.text = cellMode.title;
-    if([cell respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:cellMode:)]){
-        [cell tableView:tableView didSelectRowAtIndexPath:indexPath cellMode:cellMode];
+    if([cell respondsToSelector:@selector(nestedTableView:tableView:didSelectRowAtIndexPath:cellMode:)]){
+        [cell nestedTableView:self tableView:tableView didSelectRowAtIndexPath:indexPath cellMode:cellMode];
         return;
     }
     
@@ -386,8 +386,8 @@
     
     NSArray<NSIndexPath *> *indexPaths = [self __indexPathsForSection:section
                                                        forSectionMode:model];
-    if([headerView respondsToSelector:@selector(tableView:sectionHeaderView:forSection:expanded:animated:)]){
-        [headerView tableView:tableView sectionHeaderView:headerView forSection:section expanded:model.isExpaned animated:YES];
+    if([headerView respondsToSelector:@selector(nestedTableView:tableView:sectionHeaderView:forSection:expanded:animated:)]){
+        [headerView nestedTableView:self tableView:tableView sectionHeaderView:headerView forSection:section expanded:model.isExpaned animated:YES];
     }
     if (model.isExpaned) {
         [tableView insertRowsAtIndexPaths:indexPaths

@@ -31,7 +31,7 @@
 }
 
 #pragma mark - EZNestedTableViewSectionHeaderProtocol
-- (void)tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated{
+- (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated{
     
     
     
