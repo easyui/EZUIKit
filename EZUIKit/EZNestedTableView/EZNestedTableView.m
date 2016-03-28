@@ -239,7 +239,17 @@
     if (!value) {
         return;
     }
+    
     NSInteger tappedSection = value.integerValue;
+    
+    BOOL canSelect = YES;
+    if([headerView respondsToSelector:@selector(nestedTableView:tableView:willSelectSectionHeaderView:forSection:sectionModel:)]){
+        canSelect = [headerView nestedTableView:self tableView:self.tableView willSelectSectionHeaderView:headerView forSection:tappedSection sectionModel:[self __sectionModelAtIndex:tappedSection]];
+    }
+    if (!canSelect) {
+        return;
+    }
+    
     [self.tableView beginUpdates];
     NSUInteger count = self.sectionModels.count;
     for (NSUInteger i = 0; i <= count; i++) {

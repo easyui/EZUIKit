@@ -50,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 - (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView sectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section expanded:(BOOL)expanded animated:(BOOL)animated;
 - (void)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section sectionModel:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionModel;
+
+- (BOOL)nestedTableView:(EZNestedTableView *)nestedTableView tableView:(UITableView *)tableView willSelectSectionHeaderView:(UITableViewHeaderFooterView <EZNestedTableViewSectionHeaderProtocol> *)headerView forSection:(NSInteger)section sectionModel:(NSObject<EZNestedTableViewSectionModelProtocol> *)sectionModel;
+
 @end
 
 #pragma mark -
